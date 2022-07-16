@@ -14,17 +14,9 @@ jobs:
 
       - name: Tar modules
         run: |
-          for D in ls -d *-*; do
+          for D in `ls -d *-*`; do
             (cd ${D} && tar caf ../${D}.tgz *.ko)
           done
-
-      # Upload img
-      - name: Upload
-        uses: actions/upload-artifact@v3
-        with:
-          name: Modules
-          path: ./*.tgz
-          retention-days: 1
 
       # Publish a release if is a tag
       - name: Release
