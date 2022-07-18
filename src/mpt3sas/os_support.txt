@@ -1,0 +1,87 @@
+IT Linux driver Supported Distro list and supported package list:
+
+###############################################################################
+Red Hat, Cent OS, Oracle Enterprise Linux
+###############################################################################
+ 
+x86_64
+
+#RHEL8/OEL8/CENTOS8 
+	el8.3		: (4.18.0-240.el8.x86_64) 
+	el8.4		: (4.18.0-305.el8.x86_64)
+	el8.5		: (4.18.0-348.el8.x86_64)
+ 
+#RHEL7/OEL7/CENTOS7
+	Update7 el7.7   : (3.10.0-1062.el7.x86_64)
+	Update8 el7.8   : (3.10.0-1127.el7.x86_64)
+	Update9 el7.9   : (3.10.0-1160.el7.x86_64)
+
+##############################################################################
+SuSE
+##############################################################################
+ 
+x86_64
+
+#SLES15
+	sles15sp1 : (4.12.14-195)	: (default)
+	sles15sp2 : (5.3.18-22)		: (default)
+	sles15sp3 : (5.3.18-57)		: (default)
+
+#SLES12
+	
+	sles12sp3 : (4.4.73-5)  	: (default)
+	sles12sp4 : (4.12.14-94.41)	: (default)
+	sles12sp5 : (4.12.14-120)	: (default)
+
+##############################################################################
+OpenEuler
+##############################################################################
+
+aarch64
+#OpenEuler 20.03 LTS
+        oe20.03 : (4.19.90-2003.4.0.0036.oe1.aarch64)
+
+x86_64
+#OpenEuler 20.03 SP1 LTS
+        oe20.03sp1 : (4.19.90-2012.5.0.0054.oe1.x86_64)
+
+###############################################################################
+Ubuntu
+###############################################################################
+ 
+Single source DKMS Deb driver package will work for all supported Ubuntu OS
+releases. Please refer driver README for how to use DKMS deb driver package.
+
+x86_64
+
+	Ubuntu 18.04 : (4.15)	LTS
+	Ubuntu 20.04 : (5.4)	LTS
+ 
+###############################################################################
+Citrix:
+###############################################################################
+ 
+NOTE:
+    Only RPM support is provided for Citrix's XenServer/Hypervisor OSes.
+    Citrix has changed the DUD (Driver Update Disk) process in XenServer/Hypervisor
+    and made it mandatory for ISO images to be signed with GPG keys and
+    the GPG public key must be present in the base OS installation media.
+    Due to this DUD support is dropped for XenServer/Hypervisor.
+    Also, XenServer/Hypervisor OS by default installs out-of-box mpt3sas driver
+    rpm while installing the OS. After installing the OS, user can upgrade to
+    the latest Citrix XenServer/Hypervisor mpt3sas driver rpm provided as below,
+ 
+# rpm -Uvh avago-mpt3sas-30.255.01.00_CitrixXen7.1-1.x86_64.rpm
+
+    Also Citrix Hypervisor CR releases are having same kernel version, So same
+    driver rpm binary which is provided for previous CR release will work for
+    current CR/LTSR release also if kernel version is same. So BRCM will provide
+    only one binary rpm for all the CR/LTSR releases which are having same kernel
+    version.
+ 
+x86_64
+        Citrix7-Update1 : (4.4.0+2)     (LTSR)
+x86_64
+        Citrix8-Base    : (4.19.0+1)
+        Citrix8-Update1 : (4.19.0+1)
+        Citrix8-Update2 : (4.19.0+1)    (LTSR)
