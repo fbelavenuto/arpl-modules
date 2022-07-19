@@ -4238,7 +4238,7 @@ void _kc_skb_add_rx_frag(struct sk_buff *skb, int i, struct page *page,
 #if ( LINUX_VERSION_CODE >= KERNEL_VERSION(3,0,0) ) || \
     ( RHEL_RELEASE_CODE >= RHEL_RELEASE_VERSION(6,4) )
 #if !defined(NO_PTP_SUPPORT) && IS_ENABLED(CONFIG_PTP_1588_CLOCK)
-//#define HAVE_PTP_1588_CLOCK
+#define HAVE_PTP_1588_CLOCK
 #endif /* !NO_PTP_SUPPORT && IS_ENABLED(CONFIG_PTP_1588_CLOCK) */
 #endif /* >= 3.0.0 || RHEL_RELEASE > 6.4 */
 
