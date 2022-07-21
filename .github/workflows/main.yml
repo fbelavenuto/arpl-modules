@@ -17,6 +17,7 @@ jobs:
           for D in `ls -d *-*`; do
             (cd ${D} && tar caf ../${D}.tgz *.ko)
           done
+          (cd firmware && tar caf ../firmware.tgz *)
 
       # Publish a release if is a tag
       - name: Release
