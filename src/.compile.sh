@@ -13,6 +13,8 @@ do
   KVER=`echo ${i} | cut -d'-' -f2`
   DIR="${KVER:0:1}.x"
   if [ -d "${PWD}/${1}/${DIR}" ]; then
-    docker run -u 1000 --rm -it -v "${PWD}/${1}/${DIR}":/input -v "${PWD}/../${i}":/output fbelavenuto/syno-compiler compile-module ${PLATFORM}
+    if ! grep -q "$i" "${PWD}/${1}/.exclude" 2>/dev/null; then
+      docker run -u 1000 --rm -it -v "${PWD}/${1}/${DIR}":/input -v "${PWD}/../${i}":/output fbelavenuto/syno-compiler compile-module ${PLATFORM}
+    fi
   fi
 done
