@@ -7,6 +7,8 @@ if [ ! -d "${PWD}/${1}" ]; then
   exit 1
 fi
 
+#curl -LO "https://github.com/fbelavenuto/arpl/raw/main/PLATFORMS"
+
 for i in bromolow-3.10.108 apollolake-4.4.180 broadwell-4.4.180 broadwellnk-4.4.180 denverton-4.4.180 geminilake-4.4.180 v1000-4.4.180
 do
   PLATFORM=`echo ${i} | cut -d'-' -f1`

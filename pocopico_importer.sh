@@ -52,7 +52,9 @@ for R in ${!RELEASES2[@]}; do
     if grep -q "tgz" <<<${F}; then
         echo "Download ${F} in ${URLS[${C}]}"
         curl -sL "${URLS[${C}]}" -o module.tgz
-        tar -xaf module.tgz -C "${R}"
+        mkdir -p "${R}_pocopico"
+        echo "Extracting to ${R}_pocopico"
+        tar -xvaf module.tgz -C "${R}_pocopico"
         break
     fi
     C=$((${C}+1))
