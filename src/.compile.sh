@@ -18,7 +18,6 @@ curl -sLO "https://github.com/fbelavenuto/arpl/raw/main/PLATFORMS"
 while read PLATFORM KVER; do
   DIR="${KVER:0:1}.x"
   [ ! -d "${PWD}/${MODULE}/${DIR}" ] && continue
-  if ! grep -q "$i" "${PWD}/${MODULE}/.exclude" 2>/dev/null; then
-    docker run -u 1000 --rm -it -v "${PWD}/${1}/${DIR}":/input -v "${PWD}/../${i}":/output fbelavenuto/syno-compiler compile-module ${PLATFORM}
-  fi
+  grep -q "${PLATFORM}-${KVER}" "${PWD}/${MODULE}/.exclude" 2>/dev/null && continue
+  docker run -u 1000 --rm -it -v "${PWD}/${MODULE}/${DIR}":/input -v "${PWD}/../${PLATFORM}-${KVER}":/output fbelavenuto/syno-compiler compile-module ${PLATFORM}
 done < PLATFORMS
