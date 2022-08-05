@@ -19,5 +19,5 @@ while read PLATFORM KVER; do
   DIR="${KVER:0:1}.x"
   [ ! -d "${PWD}/${MODULE}/${DIR}" ] && continue
   grep -q "${PLATFORM}-${KVER}" "${PWD}/${MODULE}/.exclude" 2>/dev/null && continue
-  docker run -u 1000 --rm -it -v "${PWD}/${MODULE}/${DIR}":/input -v "${PWD}/../${PLATFORM}-${KVER}":/output fbelavenuto/syno-compiler compile-module ${PLATFORM}
+  docker run -u 1000 --rm -t -v "${PWD}/${MODULE}/${DIR}":/input -v "${PWD}/../${PLATFORM}-${KVER}":/output fbelavenuto/syno-compiler compile-module ${PLATFORM}
 done < PLATFORMS
