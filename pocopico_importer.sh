@@ -19,14 +19,14 @@ for R in ${!RELEASES[@]}; do
   NUM=`echo ${R} | cut -d'_' -f2`
   PLATFORM=""
   case "${MODEL}" in
-    ds3615xs) PLATFORM="bromolow-3.10.108" ;;
-    ds3617xs) PLATFORM="broadwell-4.4.180" ;;
-    ds3622xsp) PLATFORM="broadwellnk-4.4.180" ;;
-    ds918p) PLATFORM="apollolake-4.4.180" ;;
-    ds920p) PLATFORM="geminilake-4.4.180" ;;
-    ds1621p) PLATFORM="v1000-4.4.180" ;;
-    dva1622) PLATFORM="geminilake-4.4.180" ;;
-    dva3221) PLATFORM="denverton-4.4.180" ;;
+    ds3615xs) PLATFORM="bromolow_3.10.108" ;;
+    ds3617xs) PLATFORM="broadwell_4.4.180" ;;
+    ds3622xsp) PLATFORM="broadwellnk_4.4.180" ;;
+    ds918p) PLATFORM="apollolake_4.4.180" ;;
+    ds920p) PLATFORM="geminilake_4.4.180" ;;
+    ds1621p) PLATFORM="v1000_4.4.180" ;;
+    dva1622) PLATFORM="geminilake_4.4.180" ;;
+    dva3221) PLATFORM="denverton_4.4.180" ;;
   esac
   if [ -n "${PLATFORM}" ]; then
     if [ ${NUM} -eq 42218 -o ${NUM} -eq 42661 ]; then
