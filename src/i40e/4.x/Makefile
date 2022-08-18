@@ -9,8 +9,8 @@ i40e-y := i40e_main.o i40e_txrx.o i40e_ethtool.o i40e_xsk.o \
 	i40e_ddp.o i40e_client.o i40e_virtchnl_pf.o
 
 i40e-n += i40e_ptp.o
-i40e-$(BROADWELL-Y) += i40e_dcb.o i40e_dcb_nl.o
-i40e-$(BROADWELLNK-Y) += i40e_dcb.o i40e_dcb_nl.o
+i40e-$(CONFIG_DCB) += i40e_dcb.o i40e_dcb_nl.o
+#i40e-$(BROADWELLNK-Y) += i40e_dcb.o i40e_dcb_nl.o
 i40e-y += kcompat.o
 i40e-y += kcompat_vfd.o
 
