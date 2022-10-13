@@ -2,7 +2,7 @@
 /*
 ################################################################################
 #
-# r8125 is the Linux device driver released for Realtek 2.5Gigabit Ethernet
+# r8101 is the Linux device driver released for Realtek Fast Ethernet
 # controllers with PCI-Express interface.
 #
 # Copyright(c) 2022 Realtek Semiconductor Corp. All rights reserved.
@@ -41,17 +41,17 @@
 
 #include <asm/io.h>
 
-#include "r8125.h"
+#include "r8101.h"
 #include "rtl_eeprom.h"
 
 //-------------------------------------------------------------------
-//rtl8125_eeprom_type():
+//rtl8101_eeprom_type():
 //  tell the eeprom type
 //return value:
 //  0: the eeprom type is 93C46
 //  1: the eeprom type is 93C56 or 93C66
 //-------------------------------------------------------------------
-void rtl8125_eeprom_type(struct rtl8125_private *tp)
+void rtl8101_eeprom_type(struct rtl8101_private *tp)
 {
         u16 magic = 0;
 
@@ -71,7 +71,7 @@ void rtl8125_eeprom_type(struct rtl8125_private *tp)
                 tp->eeprom_len = 128;
         }
 
-        magic = rtl8125_eeprom_read_sc(tp, 0);
+        magic = rtl8101_eeprom_read_sc(tp, 0);
 
 out_no_eeprom:
         if ((magic != 0x8129) && (magic != 0x8128)) {
@@ -80,7 +80,7 @@ out_no_eeprom:
         }
 }
 
-void rtl8125_eeprom_cleanup(struct rtl8125_private *tp)
+void rtl8101_eeprom_cleanup(struct rtl8101_private *tp)
 {
         u8 x;
 
@@ -89,16 +89,16 @@ void rtl8125_eeprom_cleanup(struct rtl8125_private *tp)
 
         RTL_W8(tp, Cfg9346, x);
 
-        rtl8125_raise_clock(tp, &x);
-        rtl8125_lower_clock(tp, &x);
+        rtl8101_raise_clock(tp, &x);
+        rtl8101_lower_clock(tp, &x);
 }
 
-int rtl8125_eeprom_cmd_done(struct rtl8125_private *tp)
+int rtl8101_eeprom_cmd_done(struct rtl8101_private *tp)
 {
         u8 x;
         int i;
 
-        rtl8125_stand_by(tp);
+        rtl8101_stand_by(tp);
 
         for (i = 0; i < 50000; i++) {
                 x = RTL_R8(tp, Cfg9346);
@@ -114,10 +114,10 @@ int rtl8125_eeprom_cmd_done(struct rtl8125_private *tp)
 }
 
 //-------------------------------------------------------------------
-//rtl8125_eeprom_read_sc():
+//rtl8101_eeprom_read_sc():
 //  read one word from eeprom
 //-------------------------------------------------------------------
-u16 rtl8125_eeprom_read_sc(struct rtl8125_private *tp, u16 reg)
+u16 rtl8101_eeprom_read_sc(struct rtl8101_private *tp, u16 reg)
 {
         int addr_sz = 6;
         u8 x;
@@ -135,12 +135,12 @@ u16 rtl8125_eeprom_read_sc(struct rtl8125_private *tp, u16 reg)
         x = Cfg9346_EEM1 | Cfg9346_EECS;
         RTL_W8(tp, Cfg9346, x);
 
-        rtl8125_shift_out_bits(tp, RTL_EEPROM_READ_OPCODE, 3);
-        rtl8125_shift_out_bits(tp, reg, addr_sz);
+        rtl8101_shift_out_bits(tp, RTL_EEPROM_READ_OPCODE, 3);
+        rtl8101_shift_out_bits(tp, reg, addr_sz);
 
-        data = rtl8125_shift_in_bits(tp);
+        data = rtl8101_shift_in_bits(tp);
 
-        rtl8125_eeprom_cleanup(tp);
+        rtl8101_eeprom_cleanup(tp);
 
         RTL_W8(tp, Cfg9346, 0);
 
@@ -148,10 +148,10 @@ u16 rtl8125_eeprom_read_sc(struct rtl8125_private *tp, u16 reg)
 }
 
 //-------------------------------------------------------------------
-//rtl8125_eeprom_write_sc():
+//rtl8101_eeprom_write_sc():
 //  write one word to a specific address in the eeprom
 //-------------------------------------------------------------------
-void rtl8125_eeprom_write_sc(struct rtl8125_private *tp, u16 reg, u16 data)
+void rtl8101_eeprom_write_sc(struct rtl8101_private *tp, u16 reg, u16 data)
 {
         u8 x;
         int addr_sz = 6;
@@ -172,40 +172,40 @@ void rtl8125_eeprom_write_sc(struct rtl8125_private *tp, u16 reg, u16 data)
         x = Cfg9346_EEM1 | Cfg9346_EECS;
         RTL_W8(tp, Cfg9346, x);
 
-        rtl8125_shift_out_bits(tp, RTL_EEPROM_EWEN_OPCODE, 5);
-        rtl8125_shift_out_bits(tp, reg, w_dummy_addr);
-        rtl8125_stand_by(tp);
+        rtl8101_shift_out_bits(tp, RTL_EEPROM_EWEN_OPCODE, 5);
+        rtl8101_shift_out_bits(tp, reg, w_dummy_addr);
+        rtl8101_stand_by(tp);
 
-        rtl8125_shift_out_bits(tp, RTL_EEPROM_ERASE_OPCODE, 3);
-        rtl8125_shift_out_bits(tp, reg, addr_sz);
-        if (rtl8125_eeprom_cmd_done(tp) < 0) {
+        rtl8101_shift_out_bits(tp, RTL_EEPROM_ERASE_OPCODE, 3);
+        rtl8101_shift_out_bits(tp, reg, addr_sz);
+        if (rtl8101_eeprom_cmd_done(tp) < 0) {
                 return;
         }
-        rtl8125_stand_by(tp);
+        rtl8101_stand_by(tp);
 
-        rtl8125_shift_out_bits(tp, RTL_EEPROM_WRITE_OPCODE, 3);
-        rtl8125_shift_out_bits(tp, reg, addr_sz);
-        rtl8125_shift_out_bits(tp, data, 16);
-        if (rtl8125_eeprom_cmd_done(tp) < 0) {
+        rtl8101_shift_out_bits(tp, RTL_EEPROM_WRITE_OPCODE, 3);
+        rtl8101_shift_out_bits(tp, reg, addr_sz);
+        rtl8101_shift_out_bits(tp, data, 16);
+        if (rtl8101_eeprom_cmd_done(tp) < 0) {
                 return;
         }
-        rtl8125_stand_by(tp);
+        rtl8101_stand_by(tp);
 
-        rtl8125_shift_out_bits(tp, RTL_EEPROM_EWDS_OPCODE, 5);
-        rtl8125_shift_out_bits(tp, reg, w_dummy_addr);
+        rtl8101_shift_out_bits(tp, RTL_EEPROM_EWDS_OPCODE, 5);
+        rtl8101_shift_out_bits(tp, reg, w_dummy_addr);
 
-        rtl8125_eeprom_cleanup(tp);
+        rtl8101_eeprom_cleanup(tp);
         RTL_W8(tp, Cfg9346, 0);
 }
 
-void rtl8125_raise_clock(struct rtl8125_private *tp, u8 *x)
+void rtl8101_raise_clock(struct rtl8101_private *tp, u8 *x)
 {
         *x = *x | Cfg9346_EESK;
         RTL_W8(tp, Cfg9346, *x);
         udelay(RTL_CLOCK_RATE);
 }
 
-void rtl8125_lower_clock(struct rtl8125_private *tp, u8 *x)
+void rtl8101_lower_clock(struct rtl8101_private *tp, u8 *x)
 {
 
         *x = *x & ~Cfg9346_EESK;
@@ -213,7 +213,7 @@ void rtl8125_lower_clock(struct rtl8125_private *tp, u8 *x)
         udelay(RTL_CLOCK_RATE);
 }
 
-void rtl8125_shift_out_bits(struct rtl8125_private *tp, int data, int count)
+void rtl8101_shift_out_bits(struct rtl8101_private *tp, int data, int count)
 {
         u8 x;
         int  mask;
@@ -230,8 +230,8 @@ void rtl8125_shift_out_bits(struct rtl8125_private *tp, int data, int count)
 
                 RTL_W8(tp, Cfg9346, x);
                 udelay(RTL_CLOCK_RATE);
-                rtl8125_raise_clock(tp, &x);
-                rtl8125_lower_clock(tp, &x);
+                rtl8101_raise_clock(tp, &x);
+                rtl8101_lower_clock(tp, &x);
                 mask = mask >> 1;
         } while(mask);
 
@@ -239,7 +239,7 @@ void rtl8125_shift_out_bits(struct rtl8125_private *tp, int data, int count)
         RTL_W8(tp, Cfg9346, x);
 }
 
-u16 rtl8125_shift_in_bits(struct rtl8125_private *tp)
+u16 rtl8101_shift_in_bits(struct rtl8101_private *tp)
 {
         u8 x;
         u16 d, i;
@@ -251,7 +251,7 @@ u16 rtl8125_shift_in_bits(struct rtl8125_private *tp)
 
         for (i = 0; i < 16; i++) {
                 d = d << 1;
-                rtl8125_raise_clock(tp, &x);
+                rtl8101_raise_clock(tp, &x);
 
                 x = RTL_R8(tp, Cfg9346);
                 x &= ~Cfg9346_EEDI;
@@ -259,13 +259,13 @@ u16 rtl8125_shift_in_bits(struct rtl8125_private *tp)
                 if (x & Cfg9346_EEDO)
                         d |= 1;
 
-                rtl8125_lower_clock(tp, &x);
+                rtl8101_lower_clock(tp, &x);
         }
 
         return d;
 }
 
-void rtl8125_stand_by(struct rtl8125_private *tp)
+void rtl8101_stand_by(struct rtl8101_private *tp)
 {
         u8 x;
 
@@ -278,7 +278,7 @@ void rtl8125_stand_by(struct rtl8125_private *tp)
         RTL_W8(tp, Cfg9346, x);
 }
 
-void rtl8125_set_eeprom_sel_low(struct rtl8125_private *tp)
+void rtl8101_set_eeprom_sel_low(struct rtl8101_private *tp)
 {
         RTL_W8(tp, Cfg9346, Cfg9346_EEM1);
         RTL_W8(tp, Cfg9346, Cfg9346_EEM1 | Cfg9346_EESK);
