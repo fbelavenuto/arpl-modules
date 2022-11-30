@@ -16,6 +16,7 @@ function compile-module() {
     DIR="${KVER:0:1}.x"
     [ ! -d "${PWD}/${1}/${DIR}" ] && continue
     grep -q "${PLATFORM}-${KVER}" "${PWD}/${1}/.exclude" 2>/dev/null && continue
+    mkdir -p "${PWD}/../${PLATFORM}-${KVER}"
     docker run --rm -t -v "${PWD}/${1}/${DIR}":/input -v "${PWD}/../${PLATFORM}-${KVER}":/output fbelavenuto/syno-toolkit:${PLATFORM}-${VER} compile-module
   done < PLATFORMS
 }
