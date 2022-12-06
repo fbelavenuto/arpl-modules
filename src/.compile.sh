@@ -20,7 +20,11 @@ function compile-module() {
   done < PLATFORMS
 }
 
-curl -sLO "https://github.com/fbelavenuto/arpl/raw/main/PLATFORMS"
+if [ -f ../../arpl/PLATFORMS ]; then
+  cp ../../arpl/PLATFORMS PLATFORMS
+else
+  curl -sLO "https://github.com/fbelavenuto/arpl/raw/main/PLATFORMS"
+fi
 
 if [ $# -ge 1 ]; then
   for A in $@; do
