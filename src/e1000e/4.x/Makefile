@@ -6,4 +6,4 @@ e1000e-y += netdev.o ethtool.o ich8lan.o mac.o nvm.o phy.o \
 ccflags-y += -DNO_PTP_SUPPORT
 e1000e-n += ptp.o
 
-e1000e-y += kcompat.o
+e1000e-n += kcompat.o
