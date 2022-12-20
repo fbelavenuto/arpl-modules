@@ -29,7 +29,7 @@ fi
 
 if [ $# -ge 1 ]; then
   for A in $@; do
-    compile-module ${A}
+    compile-module ${A%/}
   done
 else
   while read D; do
