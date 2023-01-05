@@ -2,7 +2,7 @@
 
 set -e
 
-VER="7.1"
+TOOLKIT_VER="7.1"
 
 ###############################################################################
 function compile-module() {
@@ -17,7 +17,10 @@ function compile-module() {
     [ ! -d "${PWD}/${1}/${DIR}" ] && continue
     grep -q "${PLATFORM}-${KVER}" "${PWD}/${1}/.exclude" 2>/dev/null && continue
     mkdir -p "${PWD}/../${PLATFORM}-${KVER}"
-    docker run --rm -t -v "${PWD}/${1}/${DIR}":/input -v "${PWD}/../${PLATFORM}-${KVER}":/output fbelavenuto/syno-toolkit:${PLATFORM}-${VER} compile-module
+    #docker run --rm -t -v "${PWD}/${1}/${DIR}":/input -v "${PWD}/../${PLATFORM}-${KVER}":/output \
+    #  fbelavenuto/syno-toolkit:${PLATFORM}-${TOOLKIT_VER} compile-module
+    docker run -u `id -u` --rm -t -v "${PWD}/${1}/${DIR}":/input -v "${PWD}/../${PLATFORM}-${KVER}":/output \
+      fbelavenuto/syno-compiler:${TOOLKIT_VER} compile-module ${PLATFORM}
   done < PLATFORMS
 }
 
