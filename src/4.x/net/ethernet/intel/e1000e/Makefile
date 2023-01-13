@@ -27,6 +27,8 @@ e1000e-y := $(strip ${e1000e-y})
 
 ifdef BUILD_PTP_SUPPORT
 e1000e-$(CONFIG_PTP_1588_CLOCK:m=y) += ptp.o
+else
+ccflags-y += -DNO_PTP_SUPPORT
 endif
 
 #ifndef REMOVE_COMPAT
