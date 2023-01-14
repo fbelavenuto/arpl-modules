@@ -21,7 +21,7 @@
 
 #obj-$(CONFIG_SCSI)		+= scsi_mod.o
 
-#obj-$(CONFIG_RAID_ATTRS)	+= raid_class.o
+obj-$(CONFIG_RAID_ATTRS)	+= raid_class.o
 
 ## --- NOTE ORDERING HERE ---
 ## For kernel non-modular link, transport attributes need to
@@ -30,7 +30,7 @@
 obj-$(CONFIG_SCSI_SPI_ATTRS)	+= scsi_transport_spi.o
 #obj-$(CONFIG_SCSI_FC_ATTRS) 	+= scsi_transport_fc.o
 #obj-$(CONFIG_SCSI_ISCSI_ATTRS)	+= scsi_transport_iscsi.o
-#obj-$(CONFIG_SCSI_SAS_ATTRS)	+= scsi_transport_sas.o
+obj-$(CONFIG_SCSI_SAS_ATTRS)	+= scsi_transport_sas.o
 #obj-$(CONFIG_SCSI_SAS_LIBSAS)	+= libsas/
 #obj-$(CONFIG_SCSI_SRP_ATTRS)	+= scsi_transport_srp.o
 #obj-$(CONFIG_SCSI_DH)		+= device_handler/
@@ -140,13 +140,11 @@ obj-$(CONFIG_SCSI_MPT3SAS)	+= mpt3sas/
 #obj-$(CONFIG_BE2ISCSI)		+= libiscsi.o be2iscsi/
 #obj-$(CONFIG_SCSI_ESAS2R)	+= esas2r/
 #obj-$(CONFIG_SCSI_PMCRAID)	+= pmcraid.o
-#obj-$(CONFIG_SCSI_VIRTIO)	+= virtio_scsi.o
-#obj-$(CONFIG_VMWARE_PVSCSI)	+= vmw_pvscsi.o
+obj-$(CONFIG_SCSI_VIRTIO)	+= virtio_scsi.o
+obj-$(CONFIG_VMWARE_PVSCSI)	+= vmw_pvscsi.o
 #obj-$(CONFIG_XEN_SCSI_FRONTEND)	+= xen-scsifront.o
 #obj-$(CONFIG_HYPERV_STORAGE)	+= hv_storvsc.o
 #obj-$(CONFIG_SCSI_WD719X)	+= wd719x.o
-
-#obj-$(CONFIG_ARM)		+= arm/
 
 #obj-$(CONFIG_CHR_DEV_ST)	+= st.o
 #obj-$(CONFIG_CHR_DEV_OSST)	+= osst.o

@@ -111,7 +111,7 @@ obj-y				+= net/
 #obj-$(CONFIG_SERIO)		+= input/serio/
 #obj-$(CONFIG_GAMEPORT)		+= input/gameport/
 #obj-$(CONFIG_INPUT)		+= input/
-#obj-$(CONFIG_RTC_LIB)		+= rtc/
+obj-$(CONFIG_RTC_LIB)		+= rtc/
 #ifneq ($(CONFIG_SYNO_SMBUS_HDD_POWERCTL), y)
 #obj-y				+= i2c/
 #endif
@@ -120,7 +120,7 @@ obj-y				+= net/
 #obj-$(CONFIG_PTP_1588_CLOCK)	+= ptp/
 #obj-$(CONFIG_W1)		+= w1/
 #obj-$(CONFIG_POWER_SUPPLY)	+= power/
-#obj-$(CONFIG_HWMON)		+= hwmon/
+obj-$(CONFIG_HWMON)		+= hwmon/
 #obj-$(CONFIG_THERMAL)		+= thermal/
 #obj-$(CONFIG_WATCHDOG)		+= watchdog/
 #obj-$(CONFIG_MD)		+= md/
