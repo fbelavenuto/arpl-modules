@@ -55,9 +55,10 @@
  *  License.  See the file COPYING in the main directory of this archive for
  *  more details.
  */
-
+#define MODULE
 #define CONFIG_FRAMEBUFFER_CONSOLE
-#undef FBCONDEBUG
+//#define CONFIG_FRAMEBUFFER_CONSOLE_DETECT_PRIMARY
+#define FBCONDEBUG
 
 #include <linux/module.h>
 #include <linux/types.h>
