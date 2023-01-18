@@ -1,8 +1,0 @@
-.vscode
-*.o
-*.o.cmd
-*.ko
-*.ko.cmd
-.tmp_versions
-igc.mod.c
-modules.order
