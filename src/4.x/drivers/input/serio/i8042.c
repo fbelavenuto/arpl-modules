@@ -9,7 +9,9 @@
  * under the terms of the GNU General Public License version 2 as published by
  * the Free Software Foundation.
  */
+
 #define CONFIG_SERIO_I8042_MODULE 1
+
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 
 #include <linux/types.h>

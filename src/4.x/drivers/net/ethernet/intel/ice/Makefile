@@ -1,7 +1,7 @@
 ccflags-y += -I$(src) -DNETIF_F_HW_TC
 subdir-ccflags-y += -I$(src)
 
-obj-$(CONFIG_ICE) += ice.o
+obj-$(CONFIG_ICE) += ice.o auxiliary.o
 
 ice-y := ice_main.o	\
 	 ice_controlq.o	\

@@ -60,11 +60,11 @@ ccflags-$(CONFIG_ACPI_DEBUG)	+= -DACPI_DEBUG_OUTPUT
 #obj-$(CONFIG_ACPI_IPMI)		+= acpi_ipmi.o
 
 #obj-$(CONFIG_ACPI_AC) 		+= ac.o
-#obj-$(CONFIG_ACPI_BUTTON)	+= button.o
+obj-$(CONFIG_ACPI_BUTTON)	+= button.o
 #obj-$(CONFIG_ACPI_FAN)		+= fan.o
 #obj-$(CONFIG_ACPI_VIDEO)	+= video.o
 #obj-$(CONFIG_ACPI_PCI_SLOT)	+= pci_slot.o
-#obj-$(CONFIG_ACPI_PROCESSOR)	+= processor.o
+obj-$(CONFIG_ACPI_PROCESSOR)	+= processor.o
 #obj-y				+= container.o
 obj-$(CONFIG_ACPI_THERMAL)	+= thermal.o
 #obj-$(CONFIG_ACPI_NFIT)		+= nfit.o
@@ -80,11 +80,11 @@ obj-$(CONFIG_ACPI_THERMAL)	+= thermal.o
 #obj-$(CONFIG_ACPI_CPPC_LIB)	+= cppc_acpi.o
 
 # processor has its own "processor." module_param namespace
-#processor-y			:= processor_driver.o
-#processor-$(CONFIG_ACPI_PROCESSOR_IDLE) += processor_idle.o
-#processor-$(CONFIG_ACPI_CPU_FREQ_PSS)	+= processor_throttling.o	\
-#	processor_thermal.o
-#processor-$(CONFIG_CPU_FREQ)	+= processor_perflib.o
+processor-y			:= processor_driver.o
+processor-$(CONFIG_ACPI_PROCESSOR_IDLE) += processor_idle.o
+processor-$(CONFIG_ACPI_CPU_FREQ_PSS)	+= processor_throttling.o	\
+	processor_thermal.o
+processor-$(CONFIG_CPU_FREQ)	+= processor_perflib.o
 
 #obj-$(CONFIG_ACPI_PROCESSOR_AGGREGATOR) += acpi_pad.o
 
@@ -95,7 +95,5 @@ obj-$(CONFIG_ACPI_THERMAL)	+= thermal.o
 #obj-$(CONFIG_PMIC_OPREGION)	+= pmic/intel_pmic.o
 #obj-$(CONFIG_CRC_PMIC_OPREGION) += pmic/intel_pmic_crc.o
 #obj-$(CONFIG_XPOWER_PMIC_OPREGION) += pmic/intel_pmic_xpower.o
-
-#obj-$(CONFIG_SYNO_ACPI_FPDT)	+= acpi_fpdt.o
 
 #video-objs			+= acpi_video.o video_detect.o

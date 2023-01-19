@@ -63,62 +63,35 @@ void drm_global_release(void)
 	}
 }
 
-/**
- * drm_global_item_ref - Initialize and acquire reference to memory
- * object
- * @ref: Object for initialization
- *
- * This initializes a memory object, allocating memory and calling the
- * .init() hook. Further calls will increase the reference count for
- * that item.
- *
- * Returns:
- * Zero on success, non-zero otherwise.
- */
 int drm_global_item_ref(struct drm_global_reference *ref)
 {
-	int ret = 0;
+	int ret;
 	struct drm_global_item *item = &glob[ref->global_type];
 
 	mutex_lock(&item->mutex);
 	if (item->refcount == 0) {
-		ref->object = kzalloc(ref->size, GFP_KERNEL);
-		if (unlikely(ref->object == NULL)) {
+		item->object = kzalloc(ref->size, GFP_KERNEL);
+		if (unlikely(item->object == NULL)) {
 			ret = -ENOMEM;
-			goto error_unlock;
+			goto out_err;
 		}
+
+		ref->object = item->object;
 		ret = ref->init(ref);
 		if (unlikely(ret != 0))
-			goto error_free;
+			goto out_err;
 
-		item->object = ref->object;
-	} else {
-		ref->object = item->object;
 	}
-
 	++item->refcount;
+	ref->object = item->object;
 	mutex_unlock(&item->mutex);
 	return 0;
-
-error_free:
-	kfree(ref->object);
-	ref->object = NULL;
-error_unlock:
+out_err:
 	mutex_unlock(&item->mutex);
+	item->object = NULL;
 	return ret;
 }
 EXPORT_SYMBOL(drm_global_item_ref);
-
-/**
- * drm_global_item_unref - Drop reference to memory
- * object
- * @ref: Object being removed
- *
- * Drop a reference to the memory object and eventually call the
- * release() hook.  The allocated object should be dropped in the
- * release() hook or before calling this function
- *
- */
 
 void drm_global_item_unref(struct drm_global_reference *ref)
 {

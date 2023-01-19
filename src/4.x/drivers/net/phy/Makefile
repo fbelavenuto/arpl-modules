@@ -1,17 +1,10 @@
 # Makefile for Linux PHY drivers
 
-#ifeq ($(CONFIG_SYNO_LSP_ARMADA_16_12), y)
-#libphy-objs			:= phy.o phy_device.o mdio_bus.o mdio_device.o
-#else ifeq ($(CONFIG_SYNO_AMD_XGBE_PORTING), y)
-#libphy-objs			:= phy.o phy-c45.o phy_device.o mdio_bus.o mdio_device.o
-#else
 libphy-objs			:= phy.o phy_device.o mdio_bus.o
-#endif
 
 obj-$(CONFIG_PHYLIB)		+= libphy.o
 #obj-$(CONFIG_AQUANTIA_PHY)	+= aquantia.o
 #obj-$(CONFIG_MARVELL_PHY)	+= marvell.o
-#obj-$(CONFIG_MARVELL_10G_PHY)	+= marvell10g.o
 #obj-$(CONFIG_DAVICOM_PHY)	+= davicom.o
 #obj-$(CONFIG_CICADA_PHY)	+= cicada.o
 #obj-$(CONFIG_LXT_PHY)		+= lxt.o

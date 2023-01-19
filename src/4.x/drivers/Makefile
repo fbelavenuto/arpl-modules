@@ -14,9 +14,6 @@
 #obj-$(CONFIG_PINCTRL)		+= pinctrl/
 #obj-y				+= gpio/
 #obj-y				+= pwm/
-#ifeq ($(CONFIG_SYNO_LSP_ARMADA_16_12), y)
-obj-y				+= net/
-#endif
 #obj-$(CONFIG_PCI)		+= pci/
 #obj-$(CONFIG_PARISC)		+= parisc/
 #obj-$(CONFIG_RAPIDIO)		+= rapidio/
@@ -26,7 +23,7 @@ obj-y				+= video/
 # IPMI must come before ACPI in order to provide IPMI opregion support
 #obj-$(CONFIG_IPMI_HANDLER)	+= char/ipmi/
 
-#obj-$(CONFIG_ACPI)		+= acpi/
+obj-$(CONFIG_ACPI)		+= acpi/
 #obj-$(CONFIG_SFI)		+= sfi/
 # PnP must come after ACPI since it will eventually need to check if acpi
 # was used and do nothing if so
@@ -75,18 +72,13 @@ obj-y				+= gpu/
 #obj-$(CONFIG_IDE)		+= ide/
 obj-$(CONFIG_SCSI)		+= scsi/
 #obj-y				+= nvme/
-#ifeq ($(CONFIG_SYNO_SMBUS_HDD_POWERCTL), y)
-#obj-y				+= i2c/
-#endif
 #obj-$(CONFIG_ATA)		+= ata/
 #obj-$(CONFIG_TARGET_CORE)	+= target/
 #obj-$(CONFIG_MTD)		+= mtd/
 #obj-$(CONFIG_SPI)		+= spi/
 #obj-$(CONFIG_SPMI)		+= spmi/
 #obj-y				+= hsi/
-#ifneq ($(CONFIG_SYNO_LSP_ARMADA_16_12), y)
 obj-y				+= net/
-#endif
 #obj-$(CONFIG_ATM)		+= atm/
 #obj-$(CONFIG_FUSION)		+= message/
 #obj-y				+= firewire/
@@ -112,10 +104,7 @@ obj-$(CONFIG_SERIO)		+= input/serio/
 #obj-$(CONFIG_GAMEPORT)		+= input/gameport/
 obj-$(CONFIG_INPUT)		+= input/
 obj-$(CONFIG_RTC_LIB)		+= rtc/
-#ifneq ($(CONFIG_SYNO_SMBUS_HDD_POWERCTL), y)
-#obj-y				+= i2c/
-#endif
-#obj-y				+= media/
+#obj-y				+= i2c/ media/
 #obj-$(CONFIG_PPS)		+= pps/
 #obj-$(CONFIG_PTP_1588_CLOCK)	+= ptp/
 #obj-$(CONFIG_W1)		+= w1/
@@ -141,9 +130,9 @@ obj-$(CONFIG_CPU_FREQ)		+= cpufreq/
 #obj-$(CONFIG_CRYPTO)		+= crypto/
 #obj-$(CONFIG_SUPERH)		+= sh/
 #obj-$(CONFIG_ARCH_SHMOBILE)	+= sh/
-#ifndef CONFIG_ARCH_USES_GETTIMEOFFSET
+ifndef CONFIG_ARCH_USES_GETTIMEOFFSET
 #obj-y				+= clocksource/
-#endif
+endif
 #obj-$(CONFIG_DCA)		+= dca/
 #obj-$(CONFIG_HID)		+= hid/
 #obj-$(CONFIG_PPC_PS3)		+= ps3/
@@ -154,9 +143,6 @@ obj-$(CONFIG_CPU_FREQ)		+= cpufreq/
 #obj-$(CONFIG_VLYNQ)		+= vlynq/
 #obj-$(CONFIG_STAGING)		+= staging/
 #obj-y				+= platform/
-#ifeq ($(CONFIG_SYNO_LSP_ARMADA_16_12), y)
-#obj-$(CONFIG_PHONE)		+= telephony/
-#endif
 #common clk code
 #obj-y				+= clk/
 
@@ -188,6 +174,3 @@ obj-$(CONFIG_CPU_FREQ)		+= cpufreq/
 #obj-$(CONFIG_ANDROID)		+= android/
 #obj-$(CONFIG_NVMEM)		+= nvmem/
 #obj-$(CONFIG_FPGA)		+= fpga/
-#ifeq ($(CONFIG_SYNO_LSP_RTD129X),y)
-#obj-$(CONFIG_POWER_CONTROL)	+= powerctrl/
-#endif # CONFIG_SYNO_LSP_RTD129X

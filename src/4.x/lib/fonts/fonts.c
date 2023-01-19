@@ -21,6 +21,7 @@
 #include <linux/font.h>
 
 #define NO_FONTS
+#define CONFIG_FONT_8x8
 #define CONFIG_FONT_8x16
 
 static const struct font_desc *fonts[] = {

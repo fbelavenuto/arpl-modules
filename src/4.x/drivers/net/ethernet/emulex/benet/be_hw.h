@@ -1,23 +1,18 @@
 /*
- * This file is part of the Linux NIC driver for Emulex networking products.
+ * Copyright (C) 2005 - 2015 Emulex
+ * All rights reserved.
  *
- * Copyright (C) 2005-2016 Broadcom. All rights reserved.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License version 2
+ * as published by the Free Software Foundation.  The full GNU General
+ * Public License is included in this distribution in the file called COPYING.
  *
- * EMULEX and SLI are trademarks of Emulex.
- * www.emulex.com
+ * Contact Information:
  * linux-drivers@emulex.com
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of version 2 of the GNU General Public License as
- * published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful.
- * ALL EXPRESS OR IMPLIED CONDITIONS, REPRESENTATIONS AND WARRANTIES,
- * INCLUDING ANY IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A
- * PARTICULAR PURPOSE, OR NON-INFRINGEMENT, ARE DISCLAIMED, EXCEPT TO THE
- * EXTENT THAT SUCH DISCLAIMERS ARE HELD TO BE LEGALLY INVALID.
- * See the GNU General Public License for more details, a copy of which
- * can be found in the file COPYING included with this package
+ * Emulex
+ * 3333 Susan Street
+ * Costa Mesa, CA 92626
  */
 
 /********* Mailbox door bell *************/
@@ -31,29 +26,24 @@
  * queue entry.
  */
 #define MPU_MAILBOX_DB_OFFSET	0x160
-#define MPU_MAILBOX_DB_RDY_MASK	0x1	/* bit 0 */
+#define MPU_MAILBOX_DB_RDY_MASK	0x1 	/* bit 0 */
 #define MPU_MAILBOX_DB_HI_MASK	0x2	/* bit 1 */
 
-#define MPU_EP_CONTROL			0
+#define MPU_EP_CONTROL 		0
 
-/********** MPU semphore: used for SH & BE ******************/
-#define SLIPORT_SOFTRESET_OFFSET		0x5c	/* CSR BAR offset */
-#define SLIPORT_SEMAPHORE_OFFSET_BEx		0xac	/* CSR BAR offset */
-#define SLIPORT_SEMAPHORE_OFFSET_SH		0x94	/* PCI-CFG offset */
+/********** MPU semphore: used for SH & BE  *************/
+#define SLIPORT_SEMAPHORE_OFFSET_BEx		0xac  /* CSR BAR offset */
+#define SLIPORT_SEMAPHORE_OFFSET_SH		0x94  /* PCI-CFG offset */
 #define POST_STAGE_MASK				0x0000FFFF
 #define POST_ERR_MASK				0x1
 #define POST_ERR_SHIFT				31
-#define POST_ERR_RECOVERY_CODE_MASK		0xFFF
-
-/* Soft Reset register masks */
-#define SLIPORT_SOFTRESET_SR_MASK		0x00000080	/* SR bit */
 
 /* MPU semphore POST stage values */
-#define POST_STAGE_AWAITING_HOST_RDY	0x1 /* FW awaiting goahead from host */
-#define POST_STAGE_HOST_RDY		0x2 /* Host has given go-ahed to FW */
+#define POST_STAGE_AWAITING_HOST_RDY 	0x1 /* FW awaiting goahead from host */
+#define POST_STAGE_HOST_RDY 		0x2 /* Host has given go-ahed to FW */
 #define POST_STAGE_BE_RESET		0x3 /* Host wants to reset chip */
 #define POST_STAGE_ARMFW_RDY		0xc000	/* FW is done with POST */
-#define POST_STAGE_RECOVERABLE_ERR	0xE000	/* Recoverable err detected */
+
 
 /* Lancer SLIPORT registers */
 #define SLIPORT_STATUS_OFFSET		0x404
@@ -66,7 +56,7 @@
 #define SLIPORT_STATUS_DIP_MASK		0x02000000
 #define SLIPORT_STATUS_RN_MASK		0x01000000
 #define SLIPORT_STATUS_RDY_MASK		0x00800000
-#define SLIPORT_CONTROL_IP_MASK		0x08000000
+#define SLI_PORT_CONTROL_IP_MASK	0x08000000
 #define PHYSDEV_CONTROL_FW_RESET_MASK	0x00000002
 #define PHYSDEV_CONTROL_DD_MASK		0x00000004
 #define PHYSDEV_CONTROL_INP_MASK	0x40000000
@@ -78,7 +68,7 @@
 #define SLIPORT_ERROR_FW_RESET2		0x0
 
 /********* Memory BAR register ************/
-#define PCICFG_MEMBAR_CTRL_INT_CTRL_OFFSET	0xfc
+#define PCICFG_MEMBAR_CTRL_INT_CTRL_OFFSET 	0xfc
 /* Host Interrupt Enable, if set interrupts are enabled although "PCI Interrupt
  * Disable" may still globally block interrupts in addition to individual
  * interrupt masks; a mechanism for the device driver to block all interrupts
@@ -87,29 +77,11 @@
  */
 #define MEMBAR_CTRL_INT_CTRL_HOSTINTR_MASK	BIT(29) /* bit 29 */
 
-/********* Link Status CSR ****************/
-#define PCICFG_PCIE_LINK_STATUS_OFFSET		0xd0
-#define PCIE_LINK_STATUS_SPEED_MASK		0xFF	/* bits 16 - 19 */
-#define PCIE_LINK_STATUS_SPEED_SHIFT		16
-#define PCIE_LINK_STATUS_NEG_WIDTH_MASK		0x3F	/* bits 20 - 25 */
-#define PCIE_LINK_STATUS_NEG_WIDTH_SHIFT	20
-
-/********* Link Capability CSR ************/
-#define PCICFG_PCIE_LINK_CAP_OFFSET		0xcc
-#define PCIE_LINK_CAP_MAX_SPEED_MASK		0xFF	/* bits 0 - 3 */
-#define PCIE_LINK_CAP_MAX_SPEED_SHIFT		0
-#define PCIE_LINK_CAP_MAX_WIDTH_MASK		0x3F	/* bits 4 - 9 */
-#define PCIE_LINK_CAP_MAX_WIDTH_SHIFT		4
-
-/********* PCI Function Capability ************/
-#define BE_FUNCTION_CAPS_UNCLASSIFIED_STATS	0x1
+/********* PCI Function Capability *********/
 #define BE_FUNCTION_CAPS_RSS			0x2
-#define BE_FUNCTION_CAPS_PROMISCUOUS		0x4
-#define BE_FUNCTION_CAPS_LEGACY_MODE		0x8
-#define BE_FUNCTION_CAPS_MULTI_CHANNEL		0x20
 #define BE_FUNCTION_CAPS_SUPER_NIC		0x40
 
-/********* Power managment (WOL) **********/
+/********* Power management (WOL) **********/
 #define PCICFG_PM_CONTROL_OFFSET		0x44
 #define PCICFG_PM_CONTROL_MASK			0x108	/* bits 3 & 8 */
 
@@ -139,8 +111,11 @@
 #define SLI_INTF_REV_SHIFT			4
 #define SLI_INTF_FT_MASK			0x00000001
 
+#define SLI_INTF_TYPE_2		2
+#define SLI_INTF_TYPE_3		3
+
 /********* ISR0 Register offset **********/
-#define CEV_ISR0_OFFSET				0xC18
+#define CEV_ISR0_OFFSET 			0xC18
 #define CEV_ISR_SIZE				4
 
 /********* Event Q door bell *************/
@@ -157,19 +132,30 @@
 #define DB_EQ_NUM_POPPED_SHIFT		(16)	/* bits 16 - 28 */
 /* Rearm bit */
 #define DB_EQ_REARM_SHIFT		(29)	/* bit 29 */
-#define DB_EQ_R2I_DLY_SHIFT		(30)    /* bit 30 - 31 */
+/* Rearm to interrupt delay encoding */
+#define DB_EQ_R2I_DLY_SHIFT		(30)    /* bits 30 - 31 */
+
+/* Rearm to interrupt (R2I) delay multiplier encoding represents 3 different
+ * values configured in CEV_REARM2IRPT_DLY_MULT_CSR register. This value is
+ * programmed by host driver while ringing an EQ doorbell(EQ_DB) if a delay
+ * between rearming the EQ and next interrupt on this EQ is desired.
+ */
+#define	R2I_DLY_ENC_0			0	/* No delay */
+#define	R2I_DLY_ENC_1			1	/* maps to 160us EQ delay */
+#define	R2I_DLY_ENC_2			2	/* maps to 96us EQ delay */
+#define	R2I_DLY_ENC_3			3	/* maps to 48us EQ delay */
 
 /********* Compl Q door bell *************/
-#define DB_CQ_OFFSET			0x120
+#define DB_CQ_OFFSET 			0x120
 #define DB_CQ_RING_ID_MASK		0x3FF	/* bits 0 - 9 */
 #define DB_CQ_RING_ID_EXT_MASK		0x7C00	/* bits 10-14 */
 #define DB_CQ_RING_ID_EXT_MASK_SHIFT	(1)	/* qid bits 10-14
 						 placing at 11-15 */
 
 /* Number of event entries processed */
-#define DB_CQ_NUM_POPPED_SHIFT		(16)	/* bits 16 - 28 */
+#define DB_CQ_NUM_POPPED_SHIFT		(16) 	/* bits 16 - 28 */
 /* Rearm bit */
-#define DB_CQ_REARM_SHIFT		(29)	/* bit 29 */
+#define DB_CQ_REARM_SHIFT		(29) 	/* bit 29 */
 
 /********** TX ULP door bell *************/
 #define DB_TXULP1_OFFSET		0x60
@@ -179,19 +165,19 @@
 #define DB_TXULP_NUM_POSTED_MASK	0x3FFF	/* bits 16 - 29 */
 
 /********** RQ(erx) door bell ************/
-#define DB_RQ_OFFSET			0x100
+#define DB_RQ_OFFSET 			0x100
 #define DB_RQ_RING_ID_MASK		0x3FF	/* bits 0 - 9 */
 /* Number of rx frags posted */
 #define DB_RQ_NUM_POSTED_SHIFT		(24)	/* bits 24 - 31 */
 
 /********** MCC door bell ************/
-#define DB_MCCQ_OFFSET			0x140
+#define DB_MCCQ_OFFSET 			0x140
 #define DB_MCCQ_RING_ID_MASK		0x7FF	/* bits 0 - 10 */
 /* Number of entries posted */
 #define DB_MCCQ_NUM_POSTED_SHIFT	(16)	/* bits 16 - 29 */
 
 /********** SRIOV VF PCICFG OFFSET ********/
-#define SRIOV_VF_PCICFG_OFFSET          (4096)
+#define SRIOV_VF_PCICFG_OFFSET		(4096)
 
 /********** FAT TABLE  ********/
 #define RETRIEVE_FAT	0
@@ -208,11 +194,9 @@
  * are hardwired in BE silicon.
  */
 /* Event Queue Descriptor */
-#define EQ_ENTRY_VALID_MASK		0x1	/* bit 0 */
-#define EQ_ENTRY_RES_ID_MASK		0xFFFF	/* bits 16 - 31 */
-#define EQ_ENTRY_RES_ID_SHIFT		16
-
-#define BE_MAC_PROMISCUOUS		62	/* Promiscuous mode */
+#define EQ_ENTRY_VALID_MASK 		0x1	/* bit 0 */
+#define EQ_ENTRY_RES_ID_MASK 		0xFFFF	/* bits 16 - 31 */
+#define EQ_ENTRY_RES_ID_SHIFT 		16
 
 struct be_eq_entry {
 	u32 evt;
@@ -279,7 +263,7 @@ struct be_eth_hdr_wrb {
  * offset/shift/mask of each field */
 struct amap_eth_tx_compl {
 	u8 wrb_index[16];	/* dword 0 */
-	u8 ct[2];		/* dword 0 */
+	u8 ct[2]; 		/* dword 0 */
 	u8 port[2];		/* dword 0 */
 	u8 rsvd0[8];		/* dword 0 */
 	u8 status[4];		/* dword 0 */
@@ -372,7 +356,7 @@ struct amap_eth_rx_compl_v1 {
 	u8 header_len[8];	/* dword 2 */
 	u8 header_split[2];	/* dword 2 */
 	u8 rsvd1[12];		/* dword 2 */
-	u8 tunneled;		/* dword 2 */
+	u8 tunneled;
 	u8 valid;		/* dword 2 */
 	u8 rsshash[32];		/* dword 3 */
 } __packed;

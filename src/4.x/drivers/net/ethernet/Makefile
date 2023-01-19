@@ -2,7 +2,6 @@
 # Makefile for the Linux network Ethernet device drivers.
 #
 
-#obj-$(CONFIG_NET_VENDOR_AQUANTIA) += aquantia/
 #obj-$(CONFIG_NET_VENDOR_3COM) += 3com/
 #obj-$(CONFIG_NET_VENDOR_8390) += 8390/
 #obj-$(CONFIG_NET_VENDOR_ADAPTEC) += adaptec/
@@ -40,22 +39,14 @@ obj-$(CONFIG_NET_VENDOR_EMULEX) += emulex/
 #obj-$(CONFIG_NET_VENDOR_HISILICON) += hisilicon/
 #obj-$(CONFIG_NET_VENDOR_HP) += hp/
 #obj-$(CONFIG_NET_VENDOR_IBM) += ibm/
-#ifdef CONFIG_SYNO_LSP_ARMADA_17_10
-obj-$(CONFIG_NET_VENDOR_MARVELL) += marvell/
-#else
-#ifdef CONFIG_SYNO_LSP_ARMADA_17_06_01
-#obj-$(CONFIG_NET_VENDOR_MARVELL) += marvell_syno/
-#else  # CONFIG_SYNO_LSP_ARMADA_17_06_01
-#obj-$(CONFIG_NET_VENDOR_MARVELL) += marvell_deprecated/
-#endif # CONFIG_SYNO_LSP_ARMADA_17_06_01
-#endif # CONFIG_SYNO_LSP_ARMADA_17_10
 obj-$(CONFIG_NET_VENDOR_INTEL) += intel/
 #obj-$(CONFIG_NET_VENDOR_I825XX) += i825xx/
 #obj-$(CONFIG_NET_VENDOR_XSCALE) += xscale/
 #obj-$(CONFIG_JME) += jme.o
 #obj-$(CONFIG_KORINA) += korina.o
 #obj-$(CONFIG_LANTIQ_ETOP) += lantiq_etop.o
-obj-$(CONFIG_NET_VENDOR_MELLANOX) += mellanox/
+obj-$(CONFIG_NET_VENDOR_MARVELL) += marvell/
+#obj-$(CONFIG_NET_VENDOR_MELLANOX) += mellanox/
 #obj-$(CONFIG_NET_VENDOR_MICREL) += micrel/
 #obj-$(CONFIG_NET_VENDOR_MICROCHIP) += microchip/
 #obj-$(CONFIG_NET_VENDOR_MOXART) += moxa/

@@ -1,5 +1,3 @@
-obj-$(CONFIG_FB)               += fbdev.o
-
 # Makefile for the Linux video drivers.
 # 5 Aug 1999, James Simmons, <mailto:jsimmons@users.sf.net>
 # Rewritten to use lists instead of if-statements.
@@ -60,7 +58,7 @@ obj-y				+= core/
 #obj-$(CONFIG_FB_LEO)              += leo.o sbuslib.o
 #obj-$(CONFIG_FB_ACORN)            += acornfb.o
 #obj-$(CONFIG_FB_ATARI)            += atafb.o c2p_iplan2.o atafb_mfb.o \
-#                                     atafb_iplan2p2.o atafb_iplan2p4.o atafb_iplan2p8.o
+                                     atafb_iplan2p2.o atafb_iplan2p4.o atafb_iplan2p8.o
 #obj-$(CONFIG_FB_MAC)              += macfb.o
 #obj-$(CONFIG_FB_HECUBA)           += hecubafb.o
 #obj-$(CONFIG_FB_N411)             += n411.o
@@ -120,6 +118,7 @@ obj-y				+= core/
 #obj-$(CONFIG_FB_SMSCUFX)	  += smscufx.o
 #obj-$(CONFIG_FB_XILINX)           += xilinxfb.o
 #obj-$(CONFIG_SH_MIPI_DSI)	  += sh_mipi_dsi.o
+#obj-$(CONFIG_FB_SH_MOBILE_HDMI)	  += sh_mobile_hdmi.o
 #obj-$(CONFIG_FB_SH_MOBILE_MERAM)  += sh_mobile_meram.o
 #obj-$(CONFIG_FB_SH_MOBILE_LCDC)	  += sh_mobile_lcdcfb.o
 #obj-$(CONFIG_FB_OMAP)             += omap/
@@ -138,7 +137,7 @@ obj-y				+= core/
 #obj-$(CONFIG_FB_UVESA)            += uvesafb.o
 obj-$(CONFIG_FB_VESA)             += vesafb.o
 obj-$(CONFIG_FB_EFI)              += efifb.o
-#obj-$(CONFIG_FB_VGA16)            += vga16fb.o
+obj-$(CONFIG_FB_VGA16)            += vga16fb.o
 #obj-$(CONFIG_FB_OF)               += offb.o
 #obj-$(CONFIG_FB_BF537_LQ035)      += bf537-lq035.o
 #obj-$(CONFIG_FB_BF54X_LQ043)	  += bf54x-lq043fb.o

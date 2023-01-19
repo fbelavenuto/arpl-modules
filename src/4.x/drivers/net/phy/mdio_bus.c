@@ -1,6 +1,3 @@
-#ifndef MY_ABC_HERE
-#define MY_ABC_HERE
-#endif
 /* MDIO Bus interface
  *
  * Author: Andy Fleming
@@ -41,50 +38,6 @@
 
 #include <asm/irq.h>
 
-#if defined(MY_DEF_HERE) || defined(MY_DEF_HERE)
-int mdiobus_register_device(struct mdio_device *mdiodev)
-{
-	if (mdiodev->bus->mdio_map[mdiodev->addr])
-		return -EBUSY;
-
-	mdiodev->bus->mdio_map[mdiodev->addr] = mdiodev;
-
-	return 0;
-}
-EXPORT_SYMBOL(mdiobus_register_device);
-
-int mdiobus_unregister_device(struct mdio_device *mdiodev)
-{
-	if (mdiodev->bus->mdio_map[mdiodev->addr] != mdiodev)
-		return -EINVAL;
-
-	mdiodev->bus->mdio_map[mdiodev->addr] = NULL;
-
-	return 0;
-}
-EXPORT_SYMBOL(mdiobus_unregister_device);
-
-struct phy_device *mdiobus_get_phy(struct mii_bus *bus, int addr)
-{
-	struct mdio_device *mdiodev = bus->mdio_map[addr];
-
-	if (!mdiodev)
-		return NULL;
-
-	if (!(mdiodev->flags & MDIO_DEVICE_FLAG_PHY))
-		return NULL;
-
-	return container_of(mdiodev, struct phy_device, mdio);
-}
-EXPORT_SYMBOL(mdiobus_get_phy);
-
-bool mdiobus_is_registered_device(struct mii_bus *bus, int addr)
-{
-	return bus->mdio_map[addr];
-}
-EXPORT_SYMBOL(mdiobus_is_registered_device);
-#endif /* MY_DEF_HERE || MY_DEF_HERE */
-
 /**
  * mdiobus_alloc_size - allocate a mii_bus structure
  * @size: extra amount of memory to allocate for private storage.
@@ -98,9 +51,6 @@ struct mii_bus *mdiobus_alloc_size(size_t size)
 	struct mii_bus *bus;
 	size_t aligned_size = ALIGN(sizeof(*bus), NETDEV_ALIGN);
 	size_t alloc_size;
-#if defined(MY_DEF_HERE) || defined(MY_DEF_HERE)
-	int i;
-#endif /* MY_DEF_HERE || MY_DEF_HERE */
 
 	/* If we alloc extra space, it should be aligned */
 	if (size)
@@ -114,12 +64,6 @@ struct mii_bus *mdiobus_alloc_size(size_t size)
 		if (size)
 			bus->priv = (void *)bus + aligned_size;
 	}
-
-#if defined(MY_DEF_HERE) || defined(MY_DEF_HERE)
-	/* Initialise the interrupts to polling */
-	for (i = 0; i < PHY_MAX_ADDR; i++)
-		bus->irq[i] = PHY_POLL;
-#endif /* MY_DEF_HERE || MY_DEF_HERE */
 
 	return bus;
 }
@@ -251,33 +195,16 @@ EXPORT_SYMBOL(of_mdio_find_bus);
  * the phy. This allows auto-probed pyh devices to be supplied with information
  * passed in via DT.
  */
-#if defined(MY_DEF_HERE) || defined(MY_DEF_HERE)
-static void of_mdiobus_link_phydev(struct mii_bus *bus,
-				   struct phy_device *phydev)
-#else /* MY_DEF_HERE || MY_DEF_HERE */
 static void of_mdiobus_link_phydev(struct mii_bus *mdio,
 				   struct phy_device *phydev)
-#endif /* MY_DEF_HERE || MY_DEF_HERE */
 {
-#if defined(MY_DEF_HERE) || defined(MY_DEF_HERE)
-	struct device *dev = &phydev->mdio.dev;
-#else /* MY_DEF_HERE || MY_DEF_HERE */
 	struct device *dev = &phydev->dev;
-#endif /* MY_DEF_HERE || MY_DEF_HERE */
 	struct device_node *child;
 
-#if defined(MY_DEF_HERE) || defined(MY_DEF_HERE)
-	if (dev->of_node || !bus->dev.of_node)
-#else /* MY_DEF_HERE || MY_DEF_HERE */
 	if (dev->of_node || !mdio->dev.of_node)
-#endif /* MY_DEF_HERE || MY_DEF_HERE */
 		return;
 
-#if defined(MY_DEF_HERE) || defined(MY_DEF_HERE)
-	for_each_available_child_of_node(bus->dev.of_node, child) {
-#else /* MY_DEF_HERE || MY_DEF_HERE */
 	for_each_available_child_of_node(mdio->dev.of_node, child) {
-#endif /* MY_DEF_HERE || MY_DEF_HERE */
 		int addr;
 		int ret;
 
@@ -295,11 +222,7 @@ static void of_mdiobus_link_phydev(struct mii_bus *mdio,
 			continue;
 		}
 
-#if defined(MY_DEF_HERE) || defined(MY_DEF_HERE)
-		if (addr == phydev->mdio.addr) {
-#else /* MY_DEF_HERE || MY_DEF_HERE */
 		if (addr == phydev->addr) {
-#endif /* MY_DEF_HERE || MY_DEF_HERE */
 			dev->of_node = child;
 			return;
 		}
@@ -370,11 +293,7 @@ int __mdiobus_register(struct mii_bus *bus, struct module *owner)
 
 error:
 	while (--i >= 0) {
-#if defined(MY_DEF_HERE) || defined(MY_DEF_HERE)
-		struct phy_device *phydev = mdiobus_get_phy(bus, i);
-#else /* MY_DEF_HERE || MY_DEF_HERE */
 		struct phy_device *phydev = bus->phy_map[i];
-#endif /* MY_DEF_HERE || MY_DEF_HERE */
 		if (phydev) {
 			phy_device_remove(phydev);
 			phy_device_free(phydev);
@@ -387,34 +306,16 @@ EXPORT_SYMBOL(__mdiobus_register);
 
 void mdiobus_unregister(struct mii_bus *bus)
 {
-#if defined(MY_DEF_HERE) || defined(MY_DEF_HERE)
-	struct mdio_device *mdiodev;
-	struct phy_device *phydev;
-#endif /* MY_DEF_HERE || MY_DEF_HERE */
 	int i;
 
 	BUG_ON(bus->state != MDIOBUS_REGISTERED);
 	bus->state = MDIOBUS_UNREGISTERED;
 
 	for (i = 0; i < PHY_MAX_ADDR; i++) {
-#if defined(MY_DEF_HERE) || defined(MY_DEF_HERE)
-		mdiodev = bus->mdio_map[i];
-		if (!mdiodev)
-			continue;
-
-		if (!(mdiodev->flags & MDIO_DEVICE_FLAG_PHY)) {
-			phydev = container_of(mdiodev, struct phy_device, mdio);
-#else /* MY_DEF_HERE || MY_DEF_HERE */
 		struct phy_device *phydev = bus->phy_map[i];
 		if (phydev) {
-#endif /* MY_DEF_HERE || MY_DEF_HERE */
 			phy_device_remove(phydev);
 			phy_device_free(phydev);
-#if defined(MY_DEF_HERE) || defined(MY_DEF_HERE)
-		} else {
-			mdio_device_remove(mdiodev);
-			mdio_device_free(mdiodev);
-#endif /* MY_DEF_HERE || MY_DEF_HERE */
 		}
 	}
 	device_del(&bus->dev);
@@ -573,31 +474,6 @@ int mdiobus_write(struct mii_bus *bus, int addr, u32 regnum, u16 val)
 }
 EXPORT_SYMBOL(mdiobus_write);
 
-#if defined(MY_DEF_HERE) || defined(MY_DEF_HERE)
-/**
- * mdio_bus_match - determine if given MDIO driver supports the given
- *		    MDIO device
- * @dev: target MDIO device
- * @drv: given MDIO driver
- *
- * Description: Given a MDIO device, and a MDIO driver, return 1 if
- *   the driver supports the device.  Otherwise, return 0. This may
- *   require calling the devices own match function, since different classes
- *   of MDIO devices have different match criteria.
- */
-static int mdio_bus_match(struct device *dev, struct device_driver *drv)
-{
-	struct mdio_device *mdio = to_mdio_device(dev);
-
-	if (of_driver_match_device(dev, drv))
-		return 1;
-
-	if (mdio->bus_match)
-		return mdio->bus_match(dev, drv);
-
-	return 0;
-}
-#else /* MY_DEF_HERE || MY_DEF_HERE */
 /**
  * mdio_bus_match - determine if given PHY driver supports the given PHY device
  * @dev: target PHY device
@@ -635,17 +511,12 @@ static int mdio_bus_match(struct device *dev, struct device_driver *drv)
 			(phydev->phy_id & phydrv->phy_id_mask);
 	}
 }
-#endif /* MY_DEF_HERE || MY_DEF_HERE */
 
 #ifdef CONFIG_PM
 
 static bool mdio_bus_phy_may_suspend(struct phy_device *phydev)
 {
-#if defined(MY_DEF_HERE) || defined(MY_DEF_HERE)
-	struct device_driver *drv = phydev->mdio.dev.driver;
-#else /* MY_DEF_HERE || MY_DEF_HERE */
 	struct device_driver *drv = phydev->dev.driver;
-#endif /* MY_DEF_HERE || MY_DEF_HERE */
 	struct phy_driver *phydrv = to_phy_driver(drv);
 	struct net_device *netdev = phydev->attached_dev;
 

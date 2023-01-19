@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005 - 2016 Broadcom
+ * Copyright (C) 2005 - 2015 Emulex
  * All rights reserved.
  *
  * This program is free software; you can redistribute it and/or
@@ -31,9 +31,7 @@ enum be_interrupt_mode {
 	BE_INTERRUPT_MODE_MSI	= 2,
 };
 
-/* This should be kept in sync with MAX_MSIX_VECTORS in be.h */
-#define MAX_MSIX_VECTORS	32
-
+#define MAX_MSIX_VECTORS		32
 struct be_dev_info {
 	u8 __iomem *db;
 	u64 unmapped_db;
@@ -63,7 +61,7 @@ struct ocrdma_driver {
 };
 
 enum be_roce_event {
-	BE_DEV_SHUTDOWN	= 2
+	BE_DEV_SHUTDOWN = 2
 };
 
 /* APIs for RoCE driver to register callback handlers,
@@ -75,4 +73,5 @@ void be_roce_unregister_driver(struct ocrdma_driver *drv);
 /* API for RoCE driver to issue mailbox commands */
 int be_roce_mcc_cmd(void *netdev_handle, void *wrb_payload,
 		    int wrb_payload_size, u16 *cmd_status, u16 *ext_status);
+
 #endif /* BE_ROCE_H */

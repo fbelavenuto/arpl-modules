@@ -1,28 +1,37 @@
-# SPDX-License-Identifier: GPL-2.0
-# Copyright(c) 1999 - 2020 Intel Corporation.
+################################################################################
+#
+# Intel PRO/1000 Linux driver
+# Copyright(c) 1999 - 2014 Intel Corporation.
+#
+# This program is free software; you can redistribute it and/or modify it
+# under the terms and conditions of the GNU General Public License,
+# version 2, as published by the Free Software Foundation.
+#
+# This program is distributed in the hope it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, see <http://www.gnu.org/licenses/>.
+#
+# The full GNU General Public License is included in this distribution in
+# the file called "COPYING".
+#
+# Contact Information:
+# Linux NICS <linux.nics@intel.com>
+# e1000-devel Mailing List <e1000-devel@lists.sourceforge.net>
+# Intel Corporation, 5200 N.E. Elam Young Parkway, Hillsboro, OR 97124-6497
+#
+################################################################################
+
+#
+# Makefile for the Intel(R) PRO/1000 ethernet driver
+#
 
 obj-$(CONFIG_E1000E) += e1000e.o
 
-define e1000e-y
-	netdev.o
-	ethtool.o
-	ich8lan.o
-	mac.o
-	nvm.o
-	phy.o
-	manage.o
-	80003es2lan.o
-	82571.o
-	param.o
-endef
-e1000e-y := $(strip ${e1000e-y})
+e1000e-objs := 82571.o ich8lan.o 80003es2lan.o \
+	       mac.o manage.o nvm.o phy.o \
+	       param.o ethtool.o netdev.o ptp.o
 
-ifdef BUILD_PTP_SUPPORT
-e1000e-$(CONFIG_PTP_1588_CLOCK:m=y) += ptp.o
-else
-ccflags-y += -DNO_PTP_SUPPORT
-endif
-
-#ifndef REMOVE_COMPAT
-e1000e-y += kcompat.o
-#endif

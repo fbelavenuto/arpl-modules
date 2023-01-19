@@ -6,12 +6,7 @@
 #obj-$(CONFIG_USB_KAWETH)	+= kaweth.o
 #obj-$(CONFIG_USB_PEGASUS)	+= pegasus.o
 #obj-$(CONFIG_USB_RTL8150)	+= rtl8150.o
-#ifeq ($(CONFIG_SYNO_LSP_RTD1619), y)
-#obj-$(CONFIG_USB_RTL8152)	+= r8152/
-#else # CONFIG_SYNO_LSP_RTD1619
 obj-$(CONFIG_USB_RTL8152)	+= r8152.o
-obj-$(CONFIG_USB_RTL8153_ECM)	+= r8153_ecm.o
-#endif # CONFIG_SYNO_LSP_RTD1619
 #obj-$(CONFIG_USB_HSO)		+= hso.o
 #obj-$(CONFIG_USB_LAN78XX)	+= lan78xx.o
 #obj-$(CONFIG_USB_NET_AX8817X)	+= asix.o
@@ -38,11 +33,9 @@ obj-$(CONFIG_USB_RTL8153_ECM)	+= r8153_ecm.o
 #obj-$(CONFIG_USB_IPHETH)	+= ipheth.o
 #obj-$(CONFIG_USB_SIERRA_NET)	+= sierra_net.o
 #obj-$(CONFIG_USB_NET_CX82310_ETH)	+= cx82310_eth.o
-#obj-$(CONFIG_USB_NET_CDC_NCM)	+= cdc_ncm.o
+obj-$(CONFIG_USB_NET_CDC_NCM)	+= cdc_ncm.o
 #obj-$(CONFIG_USB_NET_HUAWEI_CDC_NCM)	+= huawei_cdc_ncm.o
 #obj-$(CONFIG_USB_VL600)		+= lg-vl600.o
 #obj-$(CONFIG_USB_NET_QMI_WWAN)	+= qmi_wwan.o
 #obj-$(CONFIG_USB_NET_CDC_MBIM)	+= cdc_mbim.o
 #obj-$(CONFIG_USB_NET_CH9200)	+= ch9200.o
-
-obj-$(CONFIG_AQC111) :=  aqc111.o

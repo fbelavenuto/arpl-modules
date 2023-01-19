@@ -4,7 +4,7 @@ font-objs := fonts.o
 
 #font-objs-$(CONFIG_FONT_SUN8x16)   += font_sun8x16.o
 #font-objs-$(CONFIG_FONT_SUN12x22)  += font_sun12x22.o
-#font-objs-$(CONFIG_FONT_8x8)       += font_8x8.o
+font-objs-$(CONFIG_FONT_8x8)       += font_8x8.o
 font-objs-$(CONFIG_FONT_8x16)      += font_8x16.o
 #font-objs-$(CONFIG_FONT_6x11)      += font_6x11.o
 #font-objs-$(CONFIG_FONT_7x14)      += font_7x14.o

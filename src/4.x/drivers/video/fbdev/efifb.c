@@ -16,7 +16,6 @@
 #include <linux/pci.h>
 #include <video/vga.h>
 #include <asm/sysfb.h>
-
 enum {
         OVERRIDE_NONE = 0x0,
         OVERRIDE_BASE = 0x1,
@@ -57,7 +56,6 @@ struct efifb_dmi_info efifb_dmi_list[] = {
         [M_MBP_8_2] = { "mbp82", 0x90010000, 1472 * 4, 1440, 900, OVERRIDE_NONE },
         [M_UNKNOWN] = { NULL, 0, 0, 0, 0, OVERRIDE_NONE }
 };
-
 static bool request_mem_succeeded = false;
 
 static struct fb_var_screeninfo efifb_defined = {

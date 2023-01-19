@@ -1,6 +1,3 @@
-#ifndef MY_ABC_HERE
-#define MY_ABC_HERE
-#endif
 /*
 
 	mii.c: MII interface library
@@ -60,9 +57,6 @@ int mii_ethtool_gset(struct mii_if_info *mii, struct ethtool_cmd *ecmd)
 	struct net_device *dev = mii->dev;
 	u16 bmcr, bmsr, ctrl1000 = 0, stat1000 = 0;
 	u32 nego;
-#ifdef MY_ABC_HERE
-	int cur_link = mii_link_ok(mii);
-#endif /* MY_ABC_HERE */
 
 	ecmd->supported =
 	    (SUPPORTED_10baseT_Half | SUPPORTED_10baseT_Full |
@@ -134,14 +128,6 @@ int mii_ethtool_gset(struct mii_if_info *mii, struct ethtool_cmd *ecmd)
 	}
 
 	mii->full_duplex = ecmd->duplex;
-
-#ifdef MY_ABC_HERE
-	if (!cur_link) {
-		ethtool_cmd_speed_set(ecmd, SPEED_UNKNOWN);
-		ecmd->duplex = DUPLEX_UNKNOWN;
-		mii->full_duplex = ecmd->duplex;
-	}
-#endif /* MY_ABC_HERE */
 
 	/* ignore maxtxpkt, maxrxpkt for now */
 

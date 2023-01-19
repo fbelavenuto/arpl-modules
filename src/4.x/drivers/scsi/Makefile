@@ -19,19 +19,19 @@
 
 #obj-$(CONFIG_PCMCIA)		+= pcmcia/
 
-#obj-$(CONFIG_SCSI)		+= scsi_mod.o
+obj-$(CONFIG_SCSI)		+= scsi_mod.o
 
 obj-$(CONFIG_RAID_ATTRS)	+= raid_class.o
 
-## --- NOTE ORDERING HERE ---
-## For kernel non-modular link, transport attributes need to
-## be initialised before drivers
-## --------------------------
+# --- NOTE ORDERING HERE ---
+# For kernel non-modular link, transport attributes need to
+# be initialised before drivers
+# --------------------------
 obj-$(CONFIG_SCSI_SPI_ATTRS)	+= scsi_transport_spi.o
 #obj-$(CONFIG_SCSI_FC_ATTRS) 	+= scsi_transport_fc.o
 #obj-$(CONFIG_SCSI_ISCSI_ATTRS)	+= scsi_transport_iscsi.o
 obj-$(CONFIG_SCSI_SAS_ATTRS)	+= scsi_transport_sas.o
-#obj-$(CONFIG_SCSI_SAS_LIBSAS)	+= libsas/
+obj-$(CONFIG_SCSI_SAS_LIBSAS)	+= libsas/
 #obj-$(CONFIG_SCSI_SRP_ATTRS)	+= scsi_transport_srp.o
 #obj-$(CONFIG_SCSI_DH)		+= device_handler/
 
@@ -95,7 +95,7 @@ obj-$(CONFIG_SCSI_SAS_ATTRS)	+= scsi_transport_sas.o
 #obj-$(CONFIG_SCSI_DMX3191D)	+= dmx3191d.o
 #obj-$(CONFIG_SCSI_HPSA)		+= hpsa.o
 #obj-$(CONFIG_SCSI_DTC3280)	+= dtc.o
-obj-$(CONFIG_SCSI_SYM53C8XX)	+= sym53c8xx/
+#obj-$(CONFIG_SCSI_SYM53C8XX_2)	+= sym53c8xx_2/
 #obj-$(CONFIG_SCSI_ZALON)	+= zalon7xx.o
 #obj-$(CONFIG_SCSI_EATA_PIO)	+= eata_pio.o
 #obj-$(CONFIG_SCSI_7000FASST)	+= wd7000.o
@@ -146,6 +146,8 @@ obj-$(CONFIG_VMWARE_PVSCSI)	+= vmw_pvscsi.o
 #obj-$(CONFIG_HYPERV_STORAGE)	+= hv_storvsc.o
 #obj-$(CONFIG_SCSI_WD719X)	+= wd719x.o
 
+#obj-$(CONFIG_ARM)		+= arm/
+
 #obj-$(CONFIG_CHR_DEV_ST)	+= st.o
 #obj-$(CONFIG_CHR_DEV_OSST)	+= osst.o
 #obj-$(CONFIG_BLK_DEV_SD)	+= sd_mod.o
@@ -156,21 +158,20 @@ obj-$(CONFIG_VMWARE_PVSCSI)	+= vmw_pvscsi.o
 
 #obj-$(CONFIG_SCSI_OSD_INITIATOR) += osd/
 
-## This goes last, so that "real" scsi devices probe earlier
+# This goes last, so that "real" scsi devices probe earlier
 #obj-$(CONFIG_SCSI_DEBUG)	+= scsi_debug.o
-#scsi_mod-y			+= scsi.o hosts.o scsi_ioctl.o \
-#				   scsicam.o scsi_error.o scsi_lib.o
-#scsi_mod-y			+= scsi_common.o
-#scsi_mod-y			+= libsyno_report.o
-#scsi_mod-$(CONFIG_SCSI_CONSTANTS) += constants.o
-#scsi_mod-$(CONFIG_SCSI_DMA)	+= scsi_lib_dma.o
-#scsi_mod-y			+= scsi_scan.o scsi_sysfs.o scsi_devinfo.o
-#scsi_mod-$(CONFIG_SCSI_NETLINK)	+= scsi_netlink.o
-#scsi_mod-$(CONFIG_SYSCTL)	+= scsi_sysctl.o
-#scsi_mod-$(CONFIG_SCSI_PROC_FS)	+= scsi_proc.o
-#scsi_mod-y			+= scsi_trace.o scsi_logging.o
-#scsi_mod-$(CONFIG_PM)		+= scsi_pm.o
-#scsi_mod-$(CONFIG_SCSI_DH)	+= scsi_dh.o
+scsi_mod-y			+= scsi.o hosts.o scsi_ioctl.o \
+				   scsicam.o scsi_error.o scsi_lib.o
+scsi_mod-y			+= scsi_common.o
+scsi_mod-$(CONFIG_SCSI_CONSTANTS) += constants.o
+scsi_mod-$(CONFIG_SCSI_DMA)	+= scsi_lib_dma.o
+scsi_mod-y			+= scsi_scan.o scsi_sysfs.o scsi_devinfo.o
+scsi_mod-$(CONFIG_SCSI_NETLINK)	+= scsi_netlink.o
+scsi_mod-$(CONFIG_SYSCTL)	+= scsi_sysctl.o
+scsi_mod-$(CONFIG_SCSI_PROC_FS)	+= scsi_proc.o
+scsi_mod-y			+= scsi_trace.o scsi_logging.o
+scsi_mod-$(CONFIG_PM)		+= scsi_pm.o
+scsi_mod-$(CONFIG_SCSI_DH)	+= scsi_dh.o
 
 #hv_storvsc-y			:= storvsc_drv.o
 
@@ -179,24 +180,24 @@ obj-$(CONFIG_VMWARE_PVSCSI)	+= vmw_pvscsi.o
 
 #sr_mod-objs	:= sr.o sr_ioctl.o sr_vendor.o
 #ncr53c8xx-flags-$(CONFIG_SCSI_ZALON) \
-#		:= -DCONFIG_NCR53C8XX_PREFETCH -DSCSI_NCR_BIG_ENDIAN \
-#			-DCONFIG_SCSI_NCR53C8XX_NO_WORD_TRANSFERS
+		:= -DCONFIG_NCR53C8XX_PREFETCH -DSCSI_NCR_BIG_ENDIAN \
+			-DCONFIG_SCSI_NCR53C8XX_NO_WORD_TRANSFERS
 #CFLAGS_ncr53c8xx.o	:= $(ncr53c8xx-flags-y) $(ncr53c8xx-flags-m)
 #zalon7xx-objs	:= zalon.o ncr53c8xx.o
 #NCR_Q720_mod-objs	:= NCR_Q720.o ncr53c8xx.o
 #oktagon_esp_mod-objs	:= oktagon_esp.o oktagon_io.o
 
-## Files generated that shall be removed upon make clean
+# Files generated that shall be removed upon make clean
 #clean-files :=	53c700_d.h 53c700_u.h
 
 #$(obj)/53c700.o $(MODVERDIR)/$(obj)/53c700.ver: $(obj)/53c700_d.h
 
-## If you want to play with the firmware, uncomment
-## GENERATE_FIRMWARE := 1
+# If you want to play with the firmware, uncomment
+# GENERATE_FIRMWARE := 1
 
 #ifdef GENERATE_FIRMWARE
 
 #$(obj)/53c700_d.h: $(src)/53c700.scr $(src)/script_asm.pl
 #	$(PERL) -s $(src)/script_asm.pl -ncr7x0_family $@ $(@:_d.h=_u.h) < $<
-#
+
 #endif

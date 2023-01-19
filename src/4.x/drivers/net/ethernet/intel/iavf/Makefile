@@ -1,4 +1,4 @@
-obj-$(CONFIG_IAVF) += iavf.o
+obj-$(CONFIG_IAVF) += iavf.o auxiliary.o
 
 iavf-y := iavf_main.o \
 	iavf_ethtool.o \

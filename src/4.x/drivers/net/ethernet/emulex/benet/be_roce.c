@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005 - 2016 Broadcom
+ * Copyright (C) 2005 - 2015 Emulex
  * All rights reserved.
  *
  * This program is free software; you can redistribute it and/or
@@ -30,7 +30,7 @@ static DEFINE_MUTEX(be_adapter_list_lock);
 static void _be_roce_dev_add(struct be_adapter *adapter)
 {
 	struct be_dev_info dev_info;
-	int i;
+	int i, num_vec;
 	struct pci_dev *pdev = adapter->pdev;
 
 	if (!ocrdma_drv)
@@ -59,21 +59,19 @@ static void _be_roce_dev_add(struct be_adapter *adapter)
 	dev_info.db_total_size = adapter->roce_db.total_size;
 	dev_info.netdev = adapter->netdev;
 	memcpy(dev_info.mac_addr, adapter->netdev->dev_addr, ETH_ALEN);
-	/* Hardcode as SKH for now */
 	dev_info.dev_family = adapter->sli_family;
 	if (msix_enabled(adapter)) {
 		/* provide all the vectors, so that EQ creation response
 		 * can decide which one to use.
 		 */
-		dev_info.msix.num_vectors =
-			adapter->num_msix_vec + adapter->num_msix_roce_vec;
+		num_vec = adapter->num_msix_vec + adapter->num_msix_roce_vec;
 		dev_info.intr_mode = BE_INTERRUPT_MODE_MSIX;
-
+		dev_info.msix.num_vectors = min(num_vec, MAX_MSIX_VECTORS);
 		/* provide start index of the vector,
 		 * so in case of linear usage,
 		 * it can use the base as starting point.
 		 */
-		dev_info.msix.start_vector = adapter->num_msix_vec;
+		dev_info.msix.start_vector = adapter->num_evt_qs;
 		for (i = 0; i < dev_info.msix.num_vectors; i++) {
 			dev_info.msix.vector_list[i] =
 			    adapter->msix_entries[i].vector;
@@ -122,12 +120,10 @@ void be_roce_dev_shutdown(struct be_adapter *adapter)
 {
 	if (be_roce_supported(adapter)) {
 		mutex_lock(&be_adapter_list_lock);
-		if (
-			ocrdma_drv && adapter->ocrdma_dev &&
-			ocrdma_drv->state_change_handler)
-			ocrdma_drv->state_change_handler(
-							adapter->ocrdma_dev,
-							BE_DEV_SHUTDOWN);
+		if (ocrdma_drv && adapter->ocrdma_dev &&
+		    ocrdma_drv->state_change_handler)
+			ocrdma_drv->state_change_handler(adapter->ocrdma_dev,
+							 BE_DEV_SHUTDOWN);
 		mutex_unlock(&be_adapter_list_lock);
 	}
 }
@@ -151,10 +147,7 @@ int be_roce_register_driver(struct ocrdma_driver *drv)
 	mutex_unlock(&be_adapter_list_lock);
 	return 0;
 }
-
-#ifdef BE2NET_DEFINED
 EXPORT_SYMBOL(be_roce_register_driver);
-#endif
 
 void be_roce_unregister_driver(struct ocrdma_driver *drv)
 {
@@ -168,7 +161,4 @@ void be_roce_unregister_driver(struct ocrdma_driver *drv)
 	ocrdma_drv = NULL;
 	mutex_unlock(&be_adapter_list_lock);
 }
-
-#ifdef BE2NET_DEFINED
 EXPORT_SYMBOL(be_roce_unregister_driver);
-#endif

@@ -1,6 +1,10 @@
 # SPDX-License-Identifier: GPL-2.0
 # Copyright(c) 1999 - 2022 Intel Corporation.
 
+#
+# Makefile for the Intel(R) 10GbE PCI Express Virtual Function Driver
+#
+
 obj-$(CONFIG_IXGBEVF) += ixgbevf.o
 
 define ixgbevf-y
