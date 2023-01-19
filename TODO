@@ -1,9 +1,8 @@
 e1000e
-ixgbe
 igb
-igc
 tg3
 bnx2
 bnx2x
 chelsio
-acpi-cpufreq (checar detalhes desse treco!)
+atlantic
+ixgbevf
