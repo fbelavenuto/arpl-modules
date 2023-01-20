@@ -62,7 +62,7 @@ ccflags-$(CONFIG_ACPI_DEBUG)	+= -DACPI_DEBUG_OUTPUT
 #obj-$(CONFIG_ACPI_AC) 		+= ac.o
 obj-$(CONFIG_ACPI_BUTTON)	+= button.o
 #obj-$(CONFIG_ACPI_FAN)		+= fan.o
-#obj-$(CONFIG_ACPI_VIDEO)	+= video.o
+obj-$(CONFIG_ACPI_VIDEO)	+= video.o
 #obj-$(CONFIG_ACPI_PCI_SLOT)	+= pci_slot.o
 obj-$(CONFIG_ACPI_PROCESSOR)	+= processor.o
 #obj-y				+= container.o
@@ -96,4 +96,4 @@ processor-$(CONFIG_CPU_FREQ)	+= processor_perflib.o
 #obj-$(CONFIG_CRC_PMIC_OPREGION) += pmic/intel_pmic_crc.o
 #obj-$(CONFIG_XPOWER_PMIC_OPREGION) += pmic/intel_pmic_xpower.o
 
-#video-objs			+= acpi_video.o video_detect.o
+video-objs			+= acpi_video.o video_detect.o

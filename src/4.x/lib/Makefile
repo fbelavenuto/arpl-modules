@@ -3,3 +3,4 @@
 #
 
 obj-$(CONFIG_FONT_SUPPORT) += fonts/
+obj-$(CONFIG_INTERVAL_TREE) += interval_tree.o

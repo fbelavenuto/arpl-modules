@@ -48,7 +48,7 @@ obj-$(CONFIG_VIRTIO)		+= virtio/
 # tty/ comes before char/ so that the VT console is the boot-time
 # default.
 #obj-y				+= tty/
-#obj-y				+= char/
+obj-y				+= char/
 
 # iommu/ comes before gpu as gpu are using iommu controllers
 #obj-$(CONFIG_IOMMU_SUPPORT)	+= iommu/
@@ -66,7 +66,7 @@ obj-y				+= gpu/
 #obj-$(CONFIG_NVM)		+= lightnvm/
 #obj-y				+= base/ block/ misc/ mfd/ nfc/
 #obj-$(CONFIG_LIBNVDIMM)		+= nvdimm/
-#obj-$(CONFIG_DMA_SHARED_BUFFER) += dma-buf/
+obj-$(CONFIG_DMA_SHARED_BUFFER) += dma-buf/
 #obj-$(CONFIG_NUBUS)		+= nubus/
 #obj-y				+= macintosh/
 #obj-$(CONFIG_IDE)		+= ide/
