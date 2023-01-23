@@ -28,7 +28,7 @@
 # For kernel non-modular link, transport attributes need to
 # be initialised before drivers
 # --------------------------
-#obj-$(CONFIG_SCSI_SPI_ATTRS)	+= scsi_transport_spi.o
+obj-$(CONFIG_SCSI_SPI_ATTRS)	+= scsi_transport_spi.o
 #obj-$(CONFIG_SCSI_FC_ATTRS) 	+= scsi_transport_fc.o
 #obj-$(CONFIG_SCSI_ISCSI_ATTRS)	+= scsi_transport_iscsi.o
 #obj-$(CONFIG_SCSI_SAS_ATTRS)	+= scsi_transport_sas.o
