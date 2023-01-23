@@ -1,23 +1,5 @@
-/* Intel PRO/1000 Linux driver
- * Copyright(c) 1999 - 2015 Intel Corporation.
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms and conditions of the GNU General Public License,
- * version 2, as published by the Free Software Foundation.
- *
- * This program is distributed in the hope it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
- * more details.
- *
- * The full GNU General Public License is included in this distribution in
- * the file called "COPYING".
- *
- * Contact Information:
- * Linux NICS <linux.nics@intel.com>
- * e1000-devel Mailing List <e1000-devel@lists.sourceforge.net>
- * Intel Corporation, 5200 N.E. Elam Young Parkway, Hillsboro, OR 97124-6497
- */
+/* SPDX-License-Identifier: GPL-2.0 */
+/* Copyright(c) 1999 - 2020 Intel Corporation. */
 
 #ifndef _E1000E_MAC_H_
 #define _E1000E_MAC_H_
@@ -43,6 +25,7 @@ s32 e1000e_led_on_generic(struct e1000_hw *hw);
 s32 e1000e_led_off_generic(struct e1000_hw *hw);
 void e1000e_update_mc_addr_list_generic(struct e1000_hw *hw,
 					u8 *mc_addr_list, u32 mc_addr_count);
+int e1000e_rar_set_generic(struct e1000_hw *hw, u8 *addr, u32 index);
 s32 e1000e_set_fc_watermarks(struct e1000_hw *hw);
 s32 e1000e_setup_fiber_serdes_link(struct e1000_hw *hw);
 s32 e1000e_setup_led_generic(struct e1000_hw *hw);

@@ -1,27 +1,10 @@
-/* Intel PRO/1000 Linux driver
- * Copyright(c) 1999 - 2015 Intel Corporation.
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms and conditions of the GNU General Public License,
- * version 2, as published by the Free Software Foundation.
- *
- * This program is distributed in the hope it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
- * more details.
- *
- * The full GNU General Public License is included in this distribution in
- * the file called "COPYING".
- *
- * Contact Information:
- * Linux NICS <linux.nics@intel.com>
- * e1000-devel Mailing List <e1000-devel@lists.sourceforge.net>
- * Intel Corporation, 5200 N.E. Elam Young Parkway, Hillsboro, OR 97124-6497
- */
+/* SPDX-License-Identifier: GPL-2.0 */
+/* Copyright(c) 1999 - 2020 Intel Corporation. */
 
 #ifndef _E1000E_REGS_H_
 #define _E1000E_REGS_H_
 
+/* General Register Descriptions */
 #define E1000_CTRL	0x00000	/* Device Control - RW */
 #define E1000_STATUS	0x00008	/* Device Status - RO */
 #define E1000_EECD	0x00010	/* EEPROM/Flash Control - RW */
@@ -36,11 +19,15 @@
 #define E1000_FEXTNVM	0x00028	/* Future Extended NVM - RW */
 #define E1000_FEXTNVM3	0x0003C	/* Future Extended NVM 3 - RW */
 #define E1000_FEXTNVM4	0x00024	/* Future Extended NVM 4 - RW */
+#define E1000_FEXTNVM5	0x00014	/* Future Extended NVM 5 - RW */
 #define E1000_FEXTNVM6	0x00010	/* Future Extended NVM 6 - RW */
 #define E1000_FEXTNVM7	0x000E4	/* Future Extended NVM 7 - RW */
+#define E1000_FEXTNVM8	0x5BB0	/* Future Extended NVM 8 - RW */
 #define E1000_FEXTNVM9	0x5BB4	/* Future Extended NVM 9 - RW */
 #define E1000_FEXTNVM11	0x5BBC	/* Future Extended NVM 11 - RW */
+#define E1000_FEXTNVM12	0x5BC0	/* Future Extended NVM 12 - RW */
 #define E1000_PCIEANACFG	0x00F18	/* PCIE Analog Config */
+#define E1000_DPGFR	0x00FAC	/* Dynamic Power Gate Force Control Register */
 #define E1000_FCT	0x00030	/* Flow Control Type - RW */
 #define E1000_VET	0x00038	/* VLAN Ether Type - RW */
 #define E1000_ICR	0x000C0	/* Interrupt Cause Read - R/clr */
@@ -63,6 +50,7 @@
 #define E1000_TIPG	0x00410	/* Tx Inter-packet gap -RW */
 #define E1000_AIT	0x00458	/* Adaptive Interframe Spacing Throttle - RW */
 #define E1000_LEDCTL	0x00E00	/* LED Control - RW */
+#define E1000_LEDMUX	0x08130	/* LED MUX Control */
 #define E1000_EXTCNF_CTRL	0x00F00	/* Extended Configuration Control */
 #define E1000_EXTCNF_SIZE	0x00F08	/* Extended Configuration Size */
 #define E1000_PHY_CTRL	0x00F10	/* PHY Control Register in CSR */
@@ -86,6 +74,13 @@
 /* Split and Replication Rx Control - RW */
 #define E1000_RDTR	0x02820	/* Rx Delay Timer - RW */
 #define E1000_RADV	0x0282C	/* Rx Interrupt Absolute Delay Timer - RW */
+#define E1000_EEC_REG		0x12010
+
+#define E1000_SHADOWINF		0x12068
+#define E1000_FLFWUPDATE	0x12108
+
+#define E1000_MMDAC			13	/* MMD Access Control */
+#define E1000_MMDAAD			14	/* MMD Access Address/Data */
 /* Convenience macros
  *
  * Note: "_n" is the queue number of the register to be written to.
@@ -123,6 +118,7 @@
 				 (0x054E0 + ((_i - 16) * 8)))
 #define E1000_RAH(_i)		(((_i) <= 15) ? (0x05404 + ((_i) * 8)) : \
 				 (0x054E4 + ((_i - 16) * 8)))
+
 #define E1000_SHRAL(_i)		(0x05438 + ((_i) * 8))
 #define E1000_SHRAH(_i)		(0x0543C + ((_i) * 8))
 #define E1000_TDFH		0x03410	/* Tx Data FIFO Head - RW */
@@ -132,6 +128,7 @@
 #define E1000_TDFPC		0x03430	/* Tx Data FIFO Packet Count - RW */
 #define E1000_TIDV	0x03820	/* Tx Interrupt Delay Value - RW */
 #define E1000_TADV	0x0382C	/* Tx Interrupt Absolute Delay Val - RW */
+/* Statistics Register Descriptions */
 #define E1000_CRCERRS	0x04000	/* CRC Error Count - R/clr */
 #define E1000_ALGNERRC	0x04004	/* Alignment Error Count - R/clr */
 #define E1000_SYMERRS	0x04008	/* Symbol Error Count - R/clr */
@@ -191,6 +188,7 @@
 #define E1000_TSCTC	0x040F8	/* TCP Segmentation Context Tx - R/clr */
 #define E1000_TSCTFC	0x040FC	/* TCP Segmentation Context Tx Fail - R/clr */
 #define E1000_IAC	0x04100	/* Interrupt Assertion Count */
+/* Interrupt Cause */
 #define E1000_ICRXPTC	0x04104	/* Interrupt Cause Rx Pkt Timer Expire Count */
 #define E1000_ICRXATC	0x04108	/* Interrupt Cause Rx Abs Timer Expire Count */
 #define E1000_ICTXPTC	0x0410C	/* Interrupt Cause Tx Pkt Timer Expire Count */
@@ -213,6 +211,7 @@
 #define E1000_WUC	0x05800	/* Wakeup Control - RW */
 #define E1000_WUFC	0x05808	/* Wakeup Filter Control - RW */
 #define E1000_WUS	0x05810	/* Wakeup Status - RO */
+/* Management registers */
 #define E1000_MANC	0x05820	/* Management Control - RW */
 #define E1000_FFLT	0x05F00	/* Flexible Filter Length Table - RW Array */
 #define E1000_HOST_IF	0x08800	/* Host Interface */
@@ -222,9 +221,11 @@
 /* Management Decision Filters */
 #define E1000_MDEF(_n)		(0x05890 + (4 * (_n)))
 #define E1000_SW_FW_SYNC	0x05B5C	/* SW-FW Synchronization - RW */
+/* PCIe Register Description */
 #define E1000_GCR	0x05B00	/* PCI-Ex Control */
 #define E1000_GCR2	0x05B64	/* PCI-Ex Control #2 */
-#define E1000_FACTPS	0x05B30	/* Function Active and Power State to MNG */
+/* Function Active and Power State to MNG */
+#define E1000_FACTPS	0x05B30
 #define E1000_SWSM	0x05B50	/* SW Semaphore */
 #define E1000_FWSM	0x05B54	/* FW Semaphore */
 /* Driver-only SW semaphore (not used by BOOT agents) */
@@ -234,8 +235,10 @@
 
 /* RSS registers */
 #define E1000_MRQC	0x05818	/* Multiple Receive Control - RW */
-#define E1000_RETA(_i)	(0x05C00 + ((_i) * 4))	/* Redirection Table - RW */
-#define E1000_RSSRK(_i)	(0x05C80 + ((_i) * 4))	/* RSS Random Key - RW */
+/* Redirection Table - RW Array */
+#define E1000_RETA(_i)	(0x05C00 + ((_i) * 4))
+/* RSS Random Key - RW Array */
+#define E1000_RSSRK(_i)	(0x05C80 + ((_i) * 4))
 #define E1000_TSYNCRXCTL	0x0B620	/* Rx Time Sync Control register - RW */
 #define E1000_TSYNCTXCTL	0x0B614	/* Tx Time Sync Control register - RW */
 #define E1000_RXSTMPL	0x0B624	/* Rx timestamp Low - RO */
@@ -245,6 +248,10 @@
 #define E1000_SYSTIML	0x0B600	/* System time register Low - RO */
 #define E1000_SYSTIMH	0x0B604	/* System time register High - RO */
 #define E1000_TIMINCA	0x0B608	/* Increment attributes register - RW */
+#define	E1000_SYSSTMPL	0x0B648	/* HH Timesync system stamp low register */
+#define	E1000_SYSSTMPH	0x0B64C	/* HH Timesync system stamp hi register */
+#define	E1000_PLTSTMPL	0x0B640	/* HH Timesync platform stamp low register */
+#define	E1000_PLTSTMPH	0x0B644	/* HH Timesync platform stamp hi register */
 #define E1000_RXMTRL	0x0B634	/* Time sync Rx EtherType and Msg Type - RW */
 #define E1000_RXUDP	0x0B638	/* Time Sync Rx UDP Port - RW */
 
