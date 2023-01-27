@@ -6,7 +6,6 @@
 #obj-$(CONFIG_USB_KAWETH)	+= kaweth.o
 #obj-$(CONFIG_USB_PEGASUS)	+= pegasus.o
 #obj-$(CONFIG_USB_RTL8150)	+= rtl8150.o
-obj-$(CONFIG_USB_RTL8152)	+= r8152.o
 #obj-$(CONFIG_USB_HSO)		+= hso.o
 #obj-$(CONFIG_USB_LAN78XX)	+= lan78xx.o
 #obj-$(CONFIG_USB_NET_AX8817X)	+= asix.o
@@ -39,3 +38,11 @@ obj-$(CONFIG_USB_NET_CDC_NCM)	+= cdc_ncm.o
 #obj-$(CONFIG_USB_NET_QMI_WWAN)	+= qmi_wwan.o
 #obj-$(CONFIG_USB_NET_CDC_MBIM)	+= cdc_mbim.o
 #obj-$(CONFIG_USB_NET_CH9200)	+= ch9200.o
+
+obj-$(CONFIG_USB_RTL8152)	+= r8152.o
+CONFIG_CTAP_SHORT = ON
+#       EXTRA_CFLAGS += -DRTL8152_S5_WOL
+#       EXTRA_CFLAGS += -DRTL8152_DEBUG
+ifneq (,$(filter OFF off, $(CONFIG_CTAP_SHORT)))
+        EXTRA_CFLAGS += -DCONFIG_CTAP_SHORT_OFF
+endif
