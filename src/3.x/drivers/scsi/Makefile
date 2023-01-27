@@ -28,7 +28,7 @@
 # For kernel non-modular link, transport attributes need to
 # be initialised before drivers
 # --------------------------
-#obj-$(CONFIG_SCSI_SPI_ATTRS)	+= scsi_transport_spi.o
+obj-$(CONFIG_SCSI_SPI_ATTRS)	+= scsi_transport_spi.o
 #obj-$(CONFIG_SCSI_FC_ATTRS) 	+= scsi_transport_fc.o
 #obj-$(CONFIG_SCSI_ISCSI_ATTRS)	+= scsi_transport_iscsi.o
 #obj-$(CONFIG_SCSI_SAS_ATTRS)	+= scsi_transport_sas.o
@@ -152,7 +152,7 @@ obj-$(CONFIG_VMWARE_PVSCSI)	+= vmw_pvscsi.o
 #obj-$(CONFIG_CHR_DEV_ST)	+= st.o
 #obj-$(CONFIG_CHR_DEV_OSST)	+= osst.o
 #obj-$(CONFIG_BLK_DEV_SD)	+= sd_mod.o
-#obj-$(CONFIG_BLK_DEV_SR)	+= sr_mod.o
+obj-$(CONFIG_BLK_DEV_SR)	+= sr_mod.o
 #obj-$(CONFIG_CHR_DEV_SG)	+= sg.o
 #obj-$(CONFIG_CHR_DEV_SCH)	+= ch.o
 #obj-$(CONFIG_SCSI_ENCLOSURE)	+= ses.o
@@ -180,7 +180,7 @@ obj-$(CONFIG_VMWARE_PVSCSI)	+= vmw_pvscsi.o
 #sd_mod-objs	:= sd.o
 #sd_mod-$(CONFIG_BLK_DEV_INTEGRITY) += sd_dif.o
 
-#sr_mod-objs	:= sr.o sr_ioctl.o sr_vendor.o
+sr_mod-objs	:= sr.o sr_ioctl.o sr_vendor.o
 #ncr53c8xx-flags-$(CONFIG_SCSI_ZALON) \
 		:= -DCONFIG_NCR53C8XX_PREFETCH -DSCSI_NCR_BIG_ENDIAN \
 			-DCONFIG_SCSI_NCR53C8XX_NO_WORD_TRANSFERS

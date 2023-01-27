@@ -1,23 +1,5 @@
-/* Intel PRO/1000 Linux driver
- * Copyright(c) 1999 - 2015 Intel Corporation.
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms and conditions of the GNU General Public License,
- * version 2, as published by the Free Software Foundation.
- *
- * This program is distributed in the hope it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
- * more details.
- *
- * The full GNU General Public License is included in this distribution in
- * the file called "COPYING".
- *
- * Contact Information:
- * Linux NICS <linux.nics@intel.com>
- * e1000-devel Mailing List <e1000-devel@lists.sourceforge.net>
- * Intel Corporation, 5200 N.E. Elam Young Parkway, Hillsboro, OR 97124-6497
- */
+/* SPDX-License-Identifier: GPL-2.0 */
+/* Copyright(c) 1999 - 2020 Intel Corporation. */
 
 #ifndef _E1000E_PHY_H_
 #define _E1000E_PHY_H_
@@ -96,7 +78,6 @@ s32 e1000_get_cable_length_82577(struct e1000_hw *hw);
 #define BM_PHY_PAGE_SELECT		22	/* Page Select for BM */
 #define IGP_PAGE_SHIFT			5
 #define PHY_REG_MASK			0x1F
-
 /* BM/HV Specific Registers */
 #define BM_PORT_CTRL_PAGE		769
 #define BM_WUC_PAGE			800
@@ -148,6 +129,12 @@ s32 e1000_get_cable_length_82577(struct e1000_hw *hw);
 /* I82577 PHY Diagnostics Status */
 #define I82577_DSTATUS_CABLE_LENGTH		0x03FC
 #define I82577_DSTATUS_CABLE_LENGTH_SHIFT	2
+
+#define E1000_MPHY_DIS_ACCESS		0x80000000	/* disable_access bit */
+#define E1000_MPHY_ENA_ACCESS		0x40000000	/* enable_access bit */
+#define E1000_MPHY_BUSY			0x00010000	/* busy bit */
+#define E1000_MPHY_ADDRESS_FNC_OVERRIDE	0x20000000	/* fnc_override bit */
+#define E1000_MPHY_ADDRESS_MASK		0x0000FFFF	/* address mask */
 
 /* BM PHY Copper Specific Control 1 */
 #define BM_CS_CTRL1			16

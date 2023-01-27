@@ -80,11 +80,11 @@ obj-$(CONFIG_SCSI)		+= scsi/
 #obj-y				+= hsi/
 obj-y				+= net/
 #obj-$(CONFIG_ATM)		+= atm/
-#obj-$(CONFIG_FUSION)		+= message/
+obj-$(CONFIG_FUSION)		+= message/
 #obj-y				+= firewire/
 #obj-$(CONFIG_UIO)		+= uio/
 #obj-$(CONFIG_VFIO)		+= vfio/
-#obj-y				+= cdrom/
+obj-y				+= cdrom/
 #obj-y				+= auxdisplay/
 #obj-$(CONFIG_PCCARD)		+= pcmcia/
 #obj-$(CONFIG_DIO)		+= dio/
@@ -105,6 +105,7 @@ obj-$(CONFIG_SERIO)		+= input/serio/
 obj-$(CONFIG_INPUT)		+= input/
 obj-$(CONFIG_RTC_LIB)		+= rtc/
 #obj-y				+= i2c/ media/
+obj-y += media/
 #obj-$(CONFIG_PPS)		+= pps/
 #obj-$(CONFIG_PTP_1588_CLOCK)	+= ptp/
 #obj-$(CONFIG_W1)		+= w1/
@@ -121,7 +122,7 @@ obj-$(CONFIG_HWMON)		+= hwmon/
 #obj-y				+= lguest/
 obj-$(CONFIG_CPU_FREQ)		+= cpufreq/
 #obj-$(CONFIG_CPU_IDLE)		+= cpuidle/
-#obj-y				+= mmc/
+obj-y				+= mmc/
 #obj-$(CONFIG_MEMSTICK)		+= memstick/
 #obj-y				+= leds/
 #obj-$(CONFIG_INFINIBAND)	+= infiniband/
@@ -130,9 +131,9 @@ obj-$(CONFIG_CPU_FREQ)		+= cpufreq/
 #obj-$(CONFIG_CRYPTO)		+= crypto/
 #obj-$(CONFIG_SUPERH)		+= sh/
 #obj-$(CONFIG_ARCH_SHMOBILE)	+= sh/
-ifndef CONFIG_ARCH_USES_GETTIMEOFFSET
+#ifndef CONFIG_ARCH_USES_GETTIMEOFFSET
 #obj-y				+= clocksource/
-endif
+#endif
 #obj-$(CONFIG_DCA)		+= dca/
 #obj-$(CONFIG_HID)		+= hid/
 #obj-$(CONFIG_PPC_PS3)		+= ps3/

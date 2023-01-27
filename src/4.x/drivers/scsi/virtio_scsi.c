@@ -1,3 +1,6 @@
+#ifndef MY_ABC_HERE
+#define MY_ABC_HERE
+#endif
 /*
  * Virtio SCSI HBA driver
  *
@@ -804,6 +807,9 @@ static struct scsi_host_template virtscsi_host_template_single = {
 	.target_alloc = virtscsi_target_alloc,
 	.target_destroy = virtscsi_target_destroy,
 	.track_queue_depth = 1,
+#if defined(MY_ABC_HERE)
+	.syno_port_type			= SYNO_PORT_TYPE_SAS,
+#endif /* MY_ABC_HERE */
 };
 
 static struct scsi_host_template virtscsi_host_template_multi = {
@@ -824,6 +830,9 @@ static struct scsi_host_template virtscsi_host_template_multi = {
 	.target_alloc = virtscsi_target_alloc,
 	.target_destroy = virtscsi_target_destroy,
 	.track_queue_depth = 1,
+#if defined(MY_ABC_HERE)
+	.syno_port_type			= SYNO_PORT_TYPE_SAS,
+#endif /* MY_ABC_HERE */
 };
 
 #define virtscsi_config_get(vdev, fld) \
