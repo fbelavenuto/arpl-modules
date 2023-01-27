@@ -7,6 +7,7 @@
  * License. See the file COPYING in the main directory of this archive
  * for more details.
  */
+#define CONFIG_FB_DEFERRED_IO 1
 
 #include <linux/module.h>
 #include <linux/kernel.h>

@@ -25,6 +25,7 @@
  * which are only used within the drm kms helper module as internal
  * implementation details and are not exported to drivers.
  */
+#define CONFIG_DRM_FBDEV_EMULATION 1
 
 #include <drm/drm_connector.h>
 #include <drm/drm_crtc.h>

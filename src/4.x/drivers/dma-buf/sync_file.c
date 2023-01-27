@@ -25,6 +25,7 @@
 #include <linux/anon_inodes.h>
 #include <linux/sync_file.h>
 #include <uapi/linux/sync_file.h>
+#include <linux/module.h>
 
 static const struct file_operations sync_file_fops;
 
@@ -490,3 +491,5 @@ static const struct file_operations sync_file_fops = {
 	.unlocked_ioctl = sync_file_ioctl,
 	.compat_ioctl = sync_file_ioctl,
 };
+
+MODULE_LICENSE("GPL");

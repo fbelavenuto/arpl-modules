@@ -25,7 +25,7 @@
  *    Keith Packard <keithp@keithp.com>
  *
  */
-
+#define CONFIG_DRM_FBDEV_EMULATION 1
 #include <linux/debugfs.h>
 #include <linux/sort.h>
 #include "intel_drv.h"

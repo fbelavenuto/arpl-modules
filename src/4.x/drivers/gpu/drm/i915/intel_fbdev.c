@@ -23,6 +23,8 @@
  * Authors:
  *     David Airlie
  */
+#define CONFIG_DRM_FBDEV_EMULATION 1
+#define CONFIG_FB_DEFERRED_IO 1
 
 #include <linux/async.h>
 #include <linux/module.h>

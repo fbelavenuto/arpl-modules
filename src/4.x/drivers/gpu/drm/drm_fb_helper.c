@@ -30,6 +30,10 @@
  *      Dave Airlie <airlied@linux.ie>
  *      Jesse Barnes <jesse.barnes@intel.com>
  */
+#define CONFIG_DRM_FBDEV_EMULATION 1
+#define CONFIG_FB_DEFERRED_IO 1
+#define CONFIG_DRM_FBDEV_OVERALLOC 100
+
 #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
 
 #include <linux/console.h>
@@ -1885,14 +1889,14 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper,
 		DRM_INFO("Cannot find any crtc or sizes\n");
 
 		/* First time: disable all crtc's.. */
-#ifdef MY_DEF_HERE
+#ifdef MY_ABC_HERE
 		sizes.fb_width = sizes.surface_width = 1024;
 		sizes.fb_height = sizes.surface_height = 768;
-#else /* MY_DEF_HERE */
+#else /* MY_ABC_HERE */
 		if (!fb_helper->deferred_setup && !READ_ONCE(fb_helper->dev->master))
 			restore_fbdev_mode(fb_helper);
 		return -EAGAIN;
-#endif /* MY_DEF_HERE */
+#endif /* MY_ABC_HERE */
 	}
 
 	/* Handle our overallocation */

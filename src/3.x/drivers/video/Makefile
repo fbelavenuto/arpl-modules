@@ -28,7 +28,7 @@ obj-$(CONFIG_FB_SYS_IMAGEBLIT) += sysimgblt.o
 #obj-$(CONFIG_FB_SVGALIB)       += svgalib.o
 #obj-$(CONFIG_FB_MACMODES)      += macmodes.o
 #obj-$(CONFIG_FB_DDC)           += fb_ddc.o
-#obj-$(CONFIG_FB_DEFERRED_IO)   += fb_defio.o
+obj-$(CONFIG_FB_DEFERRED_IO)   += fb_defio.o
 #obj-$(CONFIG_FB_WMT_GE_ROPS)   += wmt_ge_rops.o
 
 # Hardware specific drivers go first
