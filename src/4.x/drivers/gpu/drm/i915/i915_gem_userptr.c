@@ -21,6 +21,7 @@
  * IN THE SOFTWARE.
  *
  */
+#undef CONFIG_MMU_NOTIFIER
 
 #include <drm/drmP.h>
 #include <drm/i915_drm.h>
