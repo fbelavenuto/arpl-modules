@@ -17,13 +17,13 @@
 #obj-$(CONFIG_PCI)		+= pci/
 #obj-$(CONFIG_PARISC)		+= parisc/
 #obj-$(CONFIG_RAPIDIO)		+= rapidio/
-obj-y				+= video/
+#obj-y				+= video/
 #obj-y				+= idle/
 
 # IPMI must come before ACPI in order to provide IPMI opregion support
 #obj-$(CONFIG_IPMI_HANDLER)	+= char/ipmi/
 
-obj-$(CONFIG_ACPI)		+= acpi/
+#obj-$(CONFIG_ACPI)		+= acpi/
 #obj-$(CONFIG_SFI)		+= sfi/
 # PnP must come after ACPI since it will eventually need to check if acpi
 # was used and do nothing if so
@@ -54,7 +54,7 @@ obj-$(CONFIG_VIRTIO)		+= virtio/
 #obj-$(CONFIG_IOMMU_SUPPORT)	+= iommu/
 
 # gpu/ comes after char for AGP vs DRM startup and after iommu
-obj-y				+= gpu/
+#obj-y				+= gpu/
 
 #obj-$(CONFIG_CONNECTOR)		+= connector/
 
@@ -80,11 +80,11 @@ obj-$(CONFIG_SCSI)		+= scsi/
 #obj-y				+= hsi/
 obj-y				+= net/
 #obj-$(CONFIG_ATM)		+= atm/
-obj-$(CONFIG_FUSION)		+= message/
+#obj-$(CONFIG_FUSION)		+= message/
 #obj-y				+= firewire/
 #obj-$(CONFIG_UIO)		+= uio/
 #obj-$(CONFIG_VFIO)		+= vfio/
-obj-y				+= cdrom/
+#obj-y				+= cdrom/
 #obj-y				+= auxdisplay/
 #obj-$(CONFIG_PCCARD)		+= pcmcia/
 #obj-$(CONFIG_DIO)		+= dio/
@@ -100,17 +100,17 @@ obj-y				+= cdrom/
 #obj-$(CONFIG_PCI)		+= usb/
 #obj-$(CONFIG_USB_GADGET)	+= usb/
 #obj-$(CONFIG_OF)		+= usb/
-obj-$(CONFIG_SERIO)		+= input/serio/
+#obj-$(CONFIG_SERIO)		+= input/serio/
 #obj-$(CONFIG_GAMEPORT)		+= input/gameport/
-obj-$(CONFIG_INPUT)		+= input/
-obj-$(CONFIG_RTC_LIB)		+= rtc/
+#obj-$(CONFIG_INPUT)		+= input/
+#obj-$(CONFIG_RTC_LIB)		+= rtc/
 #obj-y				+= i2c/ media/
-obj-y += media/
+#obj-y += media/
 #obj-$(CONFIG_PPS)		+= pps/
 #obj-$(CONFIG_PTP_1588_CLOCK)	+= ptp/
 #obj-$(CONFIG_W1)		+= w1/
 #obj-$(CONFIG_POWER_SUPPLY)	+= power/
-obj-$(CONFIG_HWMON)		+= hwmon/
+#obj-$(CONFIG_HWMON)		+= hwmon/
 #obj-$(CONFIG_THERMAL)		+= thermal/
 #obj-$(CONFIG_WATCHDOG)		+= watchdog/
 #obj-$(CONFIG_MD)		+= md/
@@ -120,9 +120,9 @@ obj-$(CONFIG_HWMON)		+= hwmon/
 #obj-$(CONFIG_EDAC)		+= edac/
 #obj-$(CONFIG_EISA)		+= eisa/
 #obj-y				+= lguest/
-obj-$(CONFIG_CPU_FREQ)		+= cpufreq/
+#obj-$(CONFIG_CPU_FREQ)		+= cpufreq/
 #obj-$(CONFIG_CPU_IDLE)		+= cpuidle/
-obj-y				+= mmc/
+#obj-y				+= mmc/
 #obj-$(CONFIG_MEMSTICK)		+= memstick/
 #obj-y				+= leds/
 #obj-$(CONFIG_INFINIBAND)	+= infiniband/
