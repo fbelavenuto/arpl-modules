@@ -572,3 +572,4 @@ unlock:
 	return ret;
 }
 EXPORT_SYMBOL_GPL(cpufreq_governor_dbs);
+MODULE_LICENSE("GPL");

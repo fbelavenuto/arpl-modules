@@ -13,7 +13,7 @@
  *  Rusty Russell <rusty@rustcorp.com.au>
  *  Michael S. Tsirkin <mst@redhat.com>
  */
-
+#define CONFIG_VIRTIO_PCI_LEGACY 1
 #include "virtio_pci_common.h"
 
 /* virtio config->get_features() implementation */
