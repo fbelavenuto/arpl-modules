@@ -19,19 +19,19 @@
 
 #obj-$(CONFIG_PCMCIA)		+= pcmcia/
 
-#obj-$(CONFIG_SCSI)		+= scsi_mod.o
+obj-$(CONFIG_SCSI)		+= scsi_mod.o
 
-#obj-$(CONFIG_RAID_ATTRS)	+= raid_class.o
+obj-$(CONFIG_RAID_ATTRS)	+= raid_class.o
 
 # --- NOTE ORDERING HERE ---
 # For kernel non-modular link, transport attributes need to
 # be initialised before drivers
 # --------------------------
-#obj-$(CONFIG_SCSI_SPI_ATTRS)	+= scsi_transport_spi.o
+obj-$(CONFIG_SCSI_SPI_ATTRS)	+= scsi_transport_spi.o
 #obj-$(CONFIG_SCSI_FC_ATTRS) 	+= scsi_transport_fc.o
 #obj-$(CONFIG_SCSI_ISCSI_ATTRS)	+= scsi_transport_iscsi.o
-#obj-$(CONFIG_SCSI_SAS_ATTRS)	+= scsi_transport_sas.o
-#obj-$(CONFIG_SCSI_SAS_LIBSAS)	+= libsas/
+obj-$(CONFIG_SCSI_SAS_ATTRS)	+= scsi_transport_sas.o
+obj-$(CONFIG_SCSI_SAS_LIBSAS)	+= libsas/
 #obj-$(CONFIG_SCSI_SRP_ATTRS)	+= scsi_transport_srp.o
 #obj-$(CONFIG_SCSI_DH)		+= device_handler/
 
@@ -104,8 +104,8 @@
 #obj-$(CONFIG_SCSI_AM53C974)	+= esp_scsi.o	am53c974.o
 #obj-$(CONFIG_CXLFLASH)		+= cxlflash/
 #obj-$(CONFIG_MEGARAID_LEGACY)	+= megaraid.o
-#obj-$(CONFIG_MEGARAID_NEWGEN)	+= megaraid/
-#obj-$(CONFIG_MEGARAID_SAS)	+= megaraid/
+obj-$(CONFIG_MEGARAID_NEWGEN)	+= megaraid/
+obj-$(CONFIG_MEGARAID_SAS)	+= megaraid/
 obj-$(CONFIG_SCSI_MPT3SAS)	+= mpt3sas/
 #obj-$(CONFIG_SCSI_UFSHCD)	+= ufs/
 #obj-$(CONFIG_SCSI_ACARD)	+= atp870u.o
@@ -141,7 +141,7 @@ obj-$(CONFIG_SCSI_MPT3SAS)	+= mpt3sas/
 #obj-$(CONFIG_SCSI_ESAS2R)	+= esas2r/
 #obj-$(CONFIG_SCSI_PMCRAID)	+= pmcraid.o
 obj-$(CONFIG_SCSI_VIRTIO)	+= virtio_scsi.o
-#obj-$(CONFIG_VMWARE_PVSCSI)	+= vmw_pvscsi.o
+obj-$(CONFIG_VMWARE_PVSCSI)	+= vmw_pvscsi.o
 #obj-$(CONFIG_XEN_SCSI_FRONTEND)	+= xen-scsifront.o
 #obj-$(CONFIG_HYPERV_STORAGE)	+= hv_storvsc.o
 #obj-$(CONFIG_SCSI_WD719X)	+= wd719x.o
@@ -151,7 +151,7 @@ obj-$(CONFIG_SCSI_VIRTIO)	+= virtio_scsi.o
 #obj-$(CONFIG_CHR_DEV_ST)	+= st.o
 #obj-$(CONFIG_CHR_DEV_OSST)	+= osst.o
 #obj-$(CONFIG_BLK_DEV_SD)	+= sd_mod.o
-#obj-$(CONFIG_BLK_DEV_SR)	+= sr_mod.o
+obj-$(CONFIG_BLK_DEV_SR)	+= sr_mod.o
 #obj-$(CONFIG_CHR_DEV_SG)	+= sg.o
 #obj-$(CONFIG_CHR_DEV_SCH)	+= ch.o
 #obj-$(CONFIG_SCSI_ENCLOSURE)	+= ses.o
@@ -160,25 +160,25 @@ obj-$(CONFIG_SCSI_VIRTIO)	+= virtio_scsi.o
 
 # This goes last, so that "real" scsi devices probe earlier
 #obj-$(CONFIG_SCSI_DEBUG)	+= scsi_debug.o
-#scsi_mod-y			+= scsi.o hosts.o scsi_ioctl.o \
+scsi_mod-y			+= scsi.o hosts.o scsi_ioctl.o \
 				   scsicam.o scsi_error.o scsi_lib.o
-#scsi_mod-y			+= scsi_common.o
-#scsi_mod-$(CONFIG_SCSI_CONSTANTS) += constants.o
-#scsi_mod-$(CONFIG_SCSI_DMA)	+= scsi_lib_dma.o
-#scsi_mod-y			+= scsi_scan.o scsi_sysfs.o scsi_devinfo.o
-#scsi_mod-$(CONFIG_SCSI_NETLINK)	+= scsi_netlink.o
-#scsi_mod-$(CONFIG_SYSCTL)	+= scsi_sysctl.o
-#scsi_mod-$(CONFIG_SCSI_PROC_FS)	+= scsi_proc.o
-#scsi_mod-y			+= scsi_trace.o scsi_logging.o
-#scsi_mod-$(CONFIG_PM)		+= scsi_pm.o
-#scsi_mod-$(CONFIG_SCSI_DH)	+= scsi_dh.o
+scsi_mod-y			+= scsi_common.o
+scsi_mod-$(CONFIG_SCSI_CONSTANTS) += constants.o
+scsi_mod-$(CONFIG_SCSI_DMA)	+= scsi_lib_dma.o
+scsi_mod-y			+= scsi_scan.o scsi_sysfs.o scsi_devinfo.o
+scsi_mod-$(CONFIG_SCSI_NETLINK)	+= scsi_netlink.o
+scsi_mod-$(CONFIG_SYSCTL)	+= scsi_sysctl.o
+scsi_mod-$(CONFIG_SCSI_PROC_FS)	+= scsi_proc.o
+scsi_mod-y			+= scsi_trace.o scsi_logging.o
+scsi_mod-$(CONFIG_PM)		+= scsi_pm.o
+scsi_mod-$(CONFIG_SCSI_DH)	+= scsi_dh.o
 
 #hv_storvsc-y			:= storvsc_drv.o
 
 #sd_mod-objs	:= sd.o
 #sd_mod-$(CONFIG_BLK_DEV_INTEGRITY) += sd_dif.o
 
-#sr_mod-objs	:= sr.o sr_ioctl.o sr_vendor.o
+sr_mod-objs	:= sr.o sr_ioctl.o sr_vendor.o
 #ncr53c8xx-flags-$(CONFIG_SCSI_ZALON) \
 		:= -DCONFIG_NCR53C8XX_PREFETCH -DSCSI_NCR_BIG_ENDIAN \
 			-DCONFIG_SCSI_NCR53C8XX_NO_WORD_TRANSFERS

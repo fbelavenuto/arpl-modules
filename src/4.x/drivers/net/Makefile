@@ -12,11 +12,11 @@
 #obj-$(CONFIG_IFB) += ifb.o
 #obj-$(CONFIG_MACVLAN) += macvlan.o
 #obj-$(CONFIG_MACVTAP) += macvtap.o
-#obj-$(CONFIG_MII) += mii.o
-#obj-$(CONFIG_MDIO) += mdio.o
+obj-$(CONFIG_MII) += mii.o
+obj-$(CONFIG_MDIO) += mdio.o
 #obj-$(CONFIG_NET) += Space.o loopback.o
 #obj-$(CONFIG_NETCONSOLE) += netconsole.o
-#obj-$(CONFIG_PHYLIB) += phy/
+obj-$(CONFIG_PHYLIB) += phy/
 #obj-$(CONFIG_RIONET) += rionet.o
 #obj-$(CONFIG_NET_TEAM) += team/
 #obj-$(CONFIG_TUN) += tun.o
@@ -60,7 +60,7 @@ obj-$(CONFIG_ETHERNET) += ethernet/
 #obj-$(CONFIG_WIMAX) += wimax/
 #obj-$(CONFIG_IEEE802154) += ieee802154/
 
-#obj-$(CONFIG_VMXNET3) += vmxnet3/
+obj-$(CONFIG_VMXNET3) += vmxnet3/
 #obj-$(CONFIG_XEN_NETDEV_FRONTEND) += xen-netfront.o
 #obj-$(CONFIG_XEN_NETDEV_BACKEND) += xen-netback/
 

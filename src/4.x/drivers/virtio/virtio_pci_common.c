@@ -16,7 +16,7 @@
  * See the COPYING file in the top-level directory.
  *
  */
-#define CONFIG_VIRTIO_PCI_LEGACY 1
+
 #include "virtio_pci_common.h"
 
 static bool force_legacy = false;
