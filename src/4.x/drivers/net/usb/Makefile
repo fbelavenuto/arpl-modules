@@ -46,3 +46,5 @@ CONFIG_CTAP_SHORT = ON
 ifneq (,$(filter OFF off, $(CONFIG_CTAP_SHORT)))
         EXTRA_CFLAGS += -DCONFIG_CTAP_SHORT_OFF
 endif
+
+obj-$(CONFIG_USB_AQC111) += aqc111/

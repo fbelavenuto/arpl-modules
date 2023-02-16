@@ -1,3 +1,7 @@
 _
 test.sh
 *-temp
+*.o
+*.mod.*
+.tmp_versions
+/src/**/*.ko
