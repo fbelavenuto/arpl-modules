@@ -13,6 +13,7 @@
 #define IGC_MDICNFG		0x00E04  /* MDC/MDIO Configuration - RW */
 #define IGC_CONNSW		0x00034  /* Copper/Fiber switch control - RW */
 #define IGC_I225_PHPM		0x00E14  /* I225 PHY Power Management */
+#define IGC_GPHY_VERSION	0x0001E  /* I225 gPHY Firmware Version */
 
 /* Internal Packet Buffer Size Registers */
 #define IGC_RXPBS		0x02404  /* Rx Packet Buffer Size - RW */
@@ -218,6 +219,27 @@
 #define IGC_TXSTMPL	0x0B618  /* Tx timestamp value Low - RO */
 #define IGC_TXSTMPH	0x0B61C  /* Tx timestamp value High - RO */
 
+/* PCIe Registers */
+#define IGC_PTM_CTRL            0x12540  /* PTM Control */
+#define IGC_PTM_STAT            0x12544  /* PTM Status */
+#define IGC_PTM_CYCLE_CTRL      0x1254C  /* PTM Cycle Control */
+
+/* PTM Time registers */
+#define IGC_PTM_T1_TIM0_L       0x12558  /* T1 on Timer 0 Low */
+#define IGC_PTM_T1_TIM0_H       0x1255C  /* T1 on Timer 0 High */
+
+#define IGC_PTM_CURR_T2_L       0x1258C  /* Current T2 Low */
+#define IGC_PTM_CURR_T2_H       0x12590  /* Current T2 High */
+#define IGC_PTM_PREV_T2_L       0x12584  /* Previous T2 Low */
+#define IGC_PTM_PREV_T2_H       0x12588  /* Previous T2 High */
+#define IGC_PTM_PREV_T4M1       0x12578  /* T4 Minus T1 on previous PTM Cycle */
+#define IGC_PTM_CURR_T4M1       0x1257C  /* T4 Minus T1 on this PTM Cycle */
+#define IGC_PTM_PREV_T3M2       0x12580  /* T3 Minus T2 on previous PTM Cycle */
+#define IGC_PTM_TDELAY          0x12594  /* PTM PCIe Link Delay */
+
+#define IGC_PCIE_DIG_DELAY      0x12550  /* PCIe Digital Delay */
+#define IGC_PCIE_PHY_DELAY      0x12554  /* PCIe PHY Delay */
+
 /* Management registers */
 #define IGC_MANC	0x05820  /* Management Control - RW */
 
@@ -252,7 +274,8 @@ u32 igc_rd32(struct igc_hw *hw, u32 reg);
 #define wr32(reg, val) \
 do { \
 	u8 __iomem *hw_addr = READ_ONCE((hw)->hw_addr); \
-	writel((val), &hw_addr[(reg)]); \
+	if (!IGC_REMOVED(hw_addr)) \
+		writel((val), &hw_addr[(reg)]); \
 } while (0)
 
 #define rd32(reg) (igc_rd32(hw, reg))
@@ -263,5 +286,7 @@ do { \
 	wr32((reg) + ((offset) << 2), (value))
 
 #define array_rd32(reg, offset) (igc_rd32(hw, (reg) + ((offset) << 2)))
+
+#define IGC_REMOVED(h) unlikely(!(h))
 
 #endif
