@@ -5,3 +5,7 @@ test.sh
 *.mod.*
 .tmp_versions
 /src/**/*.ko
+*.cmd
+*.mod
+modules.order
+Module.symvers

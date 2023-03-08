@@ -87,4 +87,9 @@ union igc_adv_rx_desc {
 #define IGC_SRRCTL_BSIZEHDRSIZE_SHIFT		2  /* Shift _left_ */
 #define IGC_SRRCTL_DESCTYPE_ADV_ONEBUF	0x02000000
 
+static inline bool dev_page_is_reusable(const struct page *page)
+{
+	return likely(page_to_nid(page) == numa_mem_id() &&
+		      !page_is_pfmemalloc(page));
+}
 #endif /* _IGC_BASE_H */
